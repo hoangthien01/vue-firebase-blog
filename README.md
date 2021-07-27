@@ -1,5 +1,13 @@
 # fireblogs
 
+## Author
+
+<h4>
+ <a href="https://github.com/nt-myduyen"> Mỹ Duyên </a> <br>
+ <a href="https://github.com/hoangthien01"> Hoàng Thiện </a> <br>
+ <a href="https://github.com/cyantiz"> Hoàng Nhân </a>  <br>
+<h4/>
+  
 ## Project setup
 ```
 npm install
