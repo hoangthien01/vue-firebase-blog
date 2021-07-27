@@ -146,7 +146,7 @@ export default {
         left: calc(50% - 5px);
         position: absolute;
         border: 10px solid;
-        border-color: #ececec transparent transparent transparent;
+        border-color: #756f6f transparent transparent transparent;
         top: calc(100%);
       }
       @media (min-width: 800px) {

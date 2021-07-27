@@ -3,55 +3,23 @@
   <nav class="container" v-show="!mobile">
     <div class="nav-links">
       <ul>
-        <li class="menu-item">
-          <router-link class="link" to="#">HOME</router-link>
-        </li>
-         <li class="menu-item">
-          <router-link class="link" to="#">BLOG</router-link>
-        </li>
-        <li class="menu-item">
-        <router-link class="link" to="#">YOUTUBE</router-link>
-        </li>
-        <li class="menu-item">
-          <router-link class="link" to="#">ỦNG HỘ</router-link>
-        </li>
-        <li class="menu-item">
-          <router-link class="link" to="#">ABOUT ME</router-link>
-        </li>
-        <li class="menu-item">
-          <router-link class="link" to="#">日本語</router-link>
-        </li> 
+        <Tree class="menu-item" :mobileNav="false" :data="navItem" v-for="(navItem,index) in navItems" :key="index">
+        </Tree>
       </ul>
     </div>
     <div class="login-register">
-      <li class="menu-item">
-        <router-link class="link" to="#">LOGIN/REGISTER</router-link>
+      <li class="menu-item" @click="$router.push('#')"> 
+        LOGIN/REGISTER
       </li>
     </div>
   </nav>
   <menuIcon @click="toggleMobileNav" class="menu-icon" v-show="mobile"/>
   <transition name="mobile-nav" >
     <ul class="mobile-nav" v-show="mobileNav">
-      <li class="menu-item">
-        <router-link class="link" to="#">HOME</router-link>
-      </li>
-      <li class="menu-item">
-        <router-link class="link" to="#">BLOG</router-link>
-      </li>
-      <li class="menu-item">
-        <router-link class="link" to="#">YOUTUBE</router-link>
-      </li>
-      <li class="menu-item">
-        <router-link class="link" to="#">ỦNG HỘ</router-link>
-      </li>
-      <li class="menu-item">
-        <router-link class="link" to="#">ABOUT ME</router-link>
-      </li>
-      <li class="menu-item">
-        <router-link class="link" to="#">日本語</router-link>
-      </li> 
-       <li class="menu-item">
-        <router-link class="link" to="#">LOGIN/REGISTER</router-link>
+      <Tree class="menu-item" :mobileNav="true" :data="navItem" v-for="(navItem,index) in navItems" :key="index">
+      </Tree>
+      <li class="menu-item" @click="$router.push('#')"> 
+        LOGIN/REGISTER
       </li>
     </ul>
   </transition>
@@ -59,17 +27,94 @@
 </template>
 
 <script>
+import Tree from "../components/Tree.vue"
 import menuIcon from "../assets/Icons/bars-regular.svg"
 export default {
   name :"navbar",
   components: {
-    menuIcon, 
+    menuIcon, Tree, 
   },
   data () {
     return {
       mobile: null,
       mobileNav : null,
-      windowWidth: null
+      windowWidth: null,
+      navItems : [
+                {
+                    content: 'HOME',
+                    child : [
+                    ],
+                },
+                {
+                    content: 'BLOG',
+                    child : [
+                      {
+                        content: 'Minimalism',
+                        child : [],
+                      },
+                      {
+                        content: 'Lifestyle',
+                        child : [],
+                      },
+                      {
+                        content: 'Nhật ký',
+                        child : [],
+                      },
+                      {
+                        content: 'Cuộc sống ở Nhật Bản',
+                        child : [],
+                      },
+                      {
+                        content: 'Cuộc sống ở Hà Nội',
+                        child : [],
+                      },
+                      {
+                        content: 'Hành trình của mình',
+                        child : [],
+                      },
+                      {
+                        content: 'Học ngoại ngữ',
+                        child : [],
+                      },
+                      {
+                        content: 'Productivity',
+                        child : [],
+                      },
+                      {
+                        content: 'Đọc sách',
+                        child : [],
+                      },
+                      {
+                        content: 'Nấu ăn',
+                        child : [],
+                      },
+                      {
+                        content: 'Khám phá & Du lịch',
+                        child : [],
+                      }
+                    ],
+                },
+                {
+                    content: 'YOUTUBE',
+                    child : [
+                    ],
+                },
+                {
+                    content: 'ỦNG HỘ',
+                    child : [
+                    ],
+                },
+                {
+                    content: 'ABOUT ME',
+                    child : [
+                    ],
+                },
+                {
+                    content: '日本語',
+                    child : [
+                    ],
+                },
+      ]
     }
   },
   created () {
@@ -97,16 +142,15 @@ export default {
 <style lang="scss" scoped>
 .link-template {
     color: #252525;
-    display: block;
     padding: 19px 14px;
     font-size: 13px;
     text-decoration: none;
-    text-transform: uppercase;
     margin: 0;
     position: relative;
     transition: .08s all linear;
     font-weight: 400;
     letter-spacing: 1px;
+    cursor: pointer;
 
     &:hover {
       color: #d3b062;
@@ -135,12 +179,9 @@ header {
 
       .menu-item {
         display: inline-block;
-        position: relative;
         text-align: center;
+        @extend .link-template
 
-        .link {
-          @extend .link-template
-        }
       }
     }
     .login-register {
@@ -148,12 +189,8 @@ header {
 
       .menu-item {
         display: inline-block;
-        position: relative;
         text-align: center;
-
-        .link {
-          @extend .link-template
-        }
+        @extend .link-template
       }
     }
   }
@@ -181,14 +218,10 @@ header {
 
     .menu-item {
       display: inline-block;
-      position: relative;
       text-align: left;
       width: 100%;
-
-      .link {
-        color: #fff;
-        @extend .link-template
-      }
+      color: #fff;
+      @extend .link-template
     }
   }
 
