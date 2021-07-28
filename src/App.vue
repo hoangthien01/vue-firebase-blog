@@ -9,6 +9,10 @@
 <script>
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default {
   components: { Navbar , Footer },
   data() {
@@ -28,6 +32,16 @@ export default {
   },
   created() {
     this.checkActiveNav()
+    
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user.uid)
+    });
+
+  },
+  watch: {
+    $route() {
+      this.checkActiveNav()
+    }
   }
 }
 </script>
@@ -53,6 +67,25 @@ export default {
   margin: 0 auto;
 }
 
+.error {
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}
+
+button {
+      margin-top: 20px;
+      transition: ease all 0.5s;
+      cursor: pointer;
+      padding: 12px 24px;
+      background-color: black;
+      color: #fff;
+      border: none;
+
+      &:hover {
+        background-color: #555555;
+      }
+    }
 
 
 

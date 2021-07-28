@@ -1,10 +1,11 @@
 <template>
   <div class="form-res-wrap">
+    <Modal v-show="modalActive" :modalMessage="modalMessage" v-on:close-modal="closeModal" />
     <div class="background"></div>
     <form class="login-form">
-      <div class="register-suggest">
+      <div class="login-suggest">
         Trở lại 
-        <router-link class="router-link" :to="{ name: 'Register' }">
+        <router-link class="router-link" :to="{ name: 'Login' }">
            đăng nhập
         </router-link>
       </div>
@@ -14,7 +15,6 @@
           <EmailIcon class="icon" />
           <input type="text" placeholder="Email" v-model="email" />
         </div>
-        
         <div v-show="error" class="error">{{ errorMessage }}</div>
       </div>
       <button @click.prevent="resetPassword">ĐĂNG NHẬP</button>
@@ -23,11 +23,23 @@
 </template>
 
 <script>
-import EmailIcon from "../assets/Icons/envelope-regular.svg";
+import EmailIcon from '../assets/Icons/envelope-regular.svg';
+import Modal from '../components/Modal.vue'
 
 export default {
   name: "Login",
-  components: { EmailIcon },
+  components: { EmailIcon, Modal },
+  data() {
+    return {
+      modalActive: true,
+      modalMessage: 'test message hehehehehe',
+    }
+  },
+  methods: {
+    closeModal() {
+      this.modalActive = false;
+    }
+  }
 };
 </script>
 
@@ -55,7 +67,7 @@ export default {
       padding: 0 50px;
     }
 
-    .register-suggest {
+    .login-suggest {
       margin-bottom: 32px;
       .router-link {
         color: black;
@@ -107,34 +119,8 @@ export default {
         }
       }
     }
+
     
-    .forgot-password {
-      text-decoration: none;
-      color: black;
-      cursor: pointer;
-      font-size: 14px;
-      margin: 16px 0 32px;
-      border-bottom: 1px solid rgba(0,0,0,0);
-      transition: ease all 0.5s;
-
-      &:hover {
-        border-bottom-color: black;
-      }
-    }
-
-    button {
-      transition: ease all 0.5s;
-      cursor: pointer;
-      padding: 12px 24px;
-      background-color: black;
-      color: #fff;
-      border-radius: 20px;
-      border: none;
-
-      &:hover {
-        background-color: #555555;
-      }
-    }
   }
 
   .background {

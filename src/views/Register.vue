@@ -3,7 +3,7 @@
     <div class="background"></div>
     <form class="register-form">
       <div class="login-suggest">
-        Đã có tài khoản? 
+        Đã có tài khoản?
         <router-link class="router-link" :to="{ name: 'Login' }">
           Đăng nhập
         </router-link>
@@ -32,7 +32,7 @@
         </div>
         <div v-show="error" class="error">{{ errorMessage }}</div>
       </div>
-      <button @click.prevent="register">ĐĂNG KÝ</button>
+      <button @click.prevent="signIn">ĐĂNG KÝ</button>
     </form>
   </div>
 </template>
@@ -42,9 +42,55 @@ import UserIcon from "../assets/Icons/user-alt-light.svg";
 import EmailIcon from "../assets/Icons/envelope-regular.svg";
 import PasswordIcon from "../assets/Icons/lock-alt-solid.svg";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+import db from "../firebase/firebaseInit";
+
 export default {
   name: "Login",
   components: { UserIcon, EmailIcon, PasswordIcon },
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      error: null,
+      errorMessage: "",
+    };
+  },
+  methods: {
+    async signIn() {
+      if (
+        this.firstName !== "" &&
+        this.lastName !== "" &&
+        this.username !== "" &&
+        this.email !== "" &&
+        this.password !== ""
+      ) {
+        this.error = false
+        this.errorMessage = ''
+        const firebaseAuth = await firebase.auth()
+        const createUser = await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password)
+        const result = await createUser
+        const dataBase = db.collection("users").doc(result.user.uid)
+        await dataBase.set({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          email: this.email,
+        })
+        
+        this.$router.push({ name: "Home" })
+        return
+      }
+
+      this.error = true
+      this.errorMessage = "Xin hãy nhập đủ thông tin!"
+      return
+    },
+  },
 };
 </script>
 
@@ -121,21 +167,6 @@ export default {
         .input-field input {
           font-size: 13px;
         }
-      }
-    }
-
-    button {
-      margin-top: 20px;
-      transition: ease all 0.5s;
-      cursor: pointer;
-      padding: 12px 24px;
-      background-color: black;
-      color: #fff;
-      border-radius: 20px;
-      border: none;
-      
-      &:hover {
-        background-color: #555555;
       }
     }
   }

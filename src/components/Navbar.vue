@@ -8,7 +8,7 @@
       </ul>
     </div>
     <div class="login-register">
-      <li class="menu-item" @click="$router.push('#')"> 
+      <li class="menu-item" @click="$router.push('/Login')"> 
         LOGIN/REGISTER
       </li>
     </div>
@@ -18,7 +18,7 @@
     <ul class="mobile-nav" v-show="mobileNav">
       <Tree class="menu-item" :mobileNav="true" :data="navItem" v-for="(navItem,index) in navItems" :key="index">
       </Tree>
-      <li class="menu-item" @click="$router.push('#')"> 
+      <li class="menu-item" @click="$router.push('/Login')"> 
         LOGIN/REGISTER
       </li>
     </ul>

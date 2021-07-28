@@ -30,9 +30,37 @@
 import EmailIcon from "../assets/Icons/envelope-regular.svg";
 import PasswordIcon from "../assets/Icons/lock-alt-solid.svg";
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default {
   name: "Login",
   components: { EmailIcon, PasswordIcon },
+  data() {
+    return {
+      email: '',
+      password: '',
+      error: null,
+      errorMessage: '',
+    }
+  },
+  methods: {
+    signIn() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.push({ name: "Home" });
+          this.error = false;
+          this.errorMessage = "";
+          console.log(firebase.auth().currentUser.uid);
+        })
+        .catch((err) => {
+          this.error = true;
+          this.errorMessage = err.message;
+        });
+    }
+  }
 };
 </script>
 
@@ -124,20 +152,6 @@ export default {
 
       &:hover {
         border-bottom-color: black;
-      }
-    }
-
-    button {
-      transition: ease all 0.5s;
-      cursor: pointer;
-      padding: 12px 24px;
-      background-color: black;
-      color: #fff;
-      border-radius: 20px;
-      border: none;
-
-      &:hover {
-        background-color: #555555;
       }
     }
   }

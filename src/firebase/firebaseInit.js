@@ -2,16 +2,16 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAgQCQi_80Ibd2UVmblh2E4W4eD30rVCF8",
-  authDomain: "vuefirebaseblog-c997b.firebaseapp.com",
-  projectId: "vuefirebaseblog-c997b",
-  storageBucket: "vuefirebaseblog-c997b.appspot.com",
-  messagingSenderId: "686401332073",
-  appId: "1:686401332073:web:3a2015f4b7054e931393f8"
+  apiKey: "AIzaSyDLfb4_CZjcWWcAGOne1op0J_W5O9YbgYs",
+  authDomain: "vuefirebaseblog-a10bf.firebaseapp.com",
+  projectId: "vuefirebaseblog-a10bf",
+  storageBucket: "vuefirebaseblog-a10bf.appspot.com",
+  messagingSenderId: "427151113936",
+  appId: "1:427151113936:web:8e330a8dd69020b70128d5"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-const timestamp = firebase.firestore.FieldValue.server.serverTimestamp;
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export { timestamp };
-export default firebase.firestore();
+export default firebaseApp.firestore();
