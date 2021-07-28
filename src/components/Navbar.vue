@@ -42,77 +42,90 @@ export default {
       navItems : [
                 {
                     content: 'HOME',
+                    link: '/',
                     child : [
                     ],
                 },
                 {
                     content: 'BLOG',
+                    link: '',
                     child : [
                       {
                         content: 'Minimalism',
+                        link: '', 
                         child : [],
                       },
                       {
                         content: 'Lifestyle',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Nhật ký',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Cuộc sống ở Nhật Bản',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Cuộc sống ở Hà Nội',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Hành trình của mình',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Học ngoại ngữ',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Productivity',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Đọc sách',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Nấu ăn',
+                        link: '',
                         child : [],
                       },
                       {
                         content: 'Khám phá & Du lịch',
+                        link: '',
                         child : [],
                       }
                     ],
                 },
                 {
-                    content: 'YOUTUBE',
-                    child : [
-                    ],
+                    content: 'CREATE-POST',
+                    link: '/CreatePost',
+                    child : [],
                 },
                 {
                     content: 'ỦNG HỘ',
-                    child : [
-                    ],
+                    link: '',
+                    child : [],
                 },
                 {
                     content: 'ABOUT ME',
-                    child : [
-                    ],
+                    link: '',
+                    child : [],
                 },
                 {
                     content: '日本語',
-                    child : [
-                    ],
+                    link: '',
+                    child : [],
                 },
       ]
     }

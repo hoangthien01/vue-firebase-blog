@@ -87,6 +87,10 @@ button {
       }
     }
 
-
+.button-inactive {
+  pointer-events: none !important;
+  cursor: none !important;
+  background-color: rgba(128, 128, 128, 0.5) !important;
+}
 
 </style>
