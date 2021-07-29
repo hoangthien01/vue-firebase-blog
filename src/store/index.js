@@ -23,7 +23,6 @@ export default new Vuex.Store({
     blogPhotoName: "",
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
-    profileId: null,
     sampleBlogCards: [
       { blogTitle: "Blog Card #1", 
         blogCoverPhoto: "stock-1",

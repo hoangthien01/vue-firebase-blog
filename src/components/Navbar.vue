@@ -122,7 +122,7 @@ export default {
                 },
                 {
                     content: 'BLOG',
-                    link: '',
+                    link: '/blogs',
                     child : [
                       {
                         content: 'Minimalism',
