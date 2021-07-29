@@ -70,18 +70,19 @@ export default {
       &:hover {
         background-color: #252525;
 
-        .edit,
-        .delete {
+        .edit, .delete {
           path {
             fill: #fff;
           }
         }
       }
-
-      &:nth-child(1) {
-        margin-right: 8px;
+      .edit, .delete {
+        pointer-events: none;
         height: 15px;
         width: auto;
+      }
+      &:nth-child(1) {
+        margin-right: 8px;
       }
     }
   }
