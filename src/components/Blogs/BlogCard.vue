@@ -8,11 +8,11 @@
         <Delete class="delete" />
       </div>
     </div>
-
-    <img
-      :src="require(`../../assets/blogCards/${post.blogCoverPhoto}.jpg`)"
-      alt=""
-    />
+    <div class="image">
+      <img
+      :src="require(`../../assets/blogCards/${post.blogCoverPhoto}.jpg`)" alt=""/>
+    </div>
+    
     <div class="info">
       <h4>{{ post.blogTitle }}</h4>
       <h6>Posted on: {{ post.blogDate }}</h6>
@@ -36,6 +36,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$darkYellow: #b68723;
 .blog-card {
   display: flex;
   flex-direction: column;
@@ -44,10 +45,17 @@ export default {
   min-height: 420px;
   cursor: pointer;
   transition: 0.5s ease all;
+  overflow: hidden;
 
-  &hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  &:hover {
+    box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 8px -1px rgba(0, 0, 0, 0.06);
+  }
+  &:hover img {
+    transform: scale(1.08);
+    object-fit: cover;
+  }
+  &:hover .link {
+    color: $darkYellow;
   }
 
   .icons {
@@ -87,13 +95,19 @@ export default {
     }
   }
 
+  .image {
+    overflow: hidden;
+    min-height: 200px;
+  }
   img {
     display: block;
     z-index: 1;
     width: 100%;
-    min-height: 200px;
+    height: 100%;
     object-fit: cover;
+    transition: 0.3s;
   }
+
   .info{
     display: flex;
     flex-direction: column;
