@@ -11,6 +11,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: { 
     user: null,
+    profileAdmin: null,
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
