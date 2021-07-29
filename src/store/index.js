@@ -18,6 +18,12 @@ export default new Vuex.Store({
     profileUsername: null,
     profileId: null,
     profileInitials: null,
+    blogHTML : "Write your blog title here...",
+    blogTitle: "",
+    blogPhotoName: "",
+    blogPhotoFileURL: null,
+    blogPhotoPreview: null,
+    profileId: null,
     sampleBlogCards: [
       { blogTitle: "Blog Card #1", 
         blogCoverPhoto: "stock-1",
@@ -56,7 +62,22 @@ export default new Vuex.Store({
     toggleEditPost(state, payload) {
       state.editPost = payload
       console.log(state.editPost)
-    }
+    },
+    newBlogPost(state, payload) {
+      state.blogHTML = payload;
+    },
+    updateBlogTitle(state, payload) {
+      state.blogTitle = payload;
+    },
+    fileNameChange(state, payload) {
+      state.blogPhotoName = payload;
+    },
+    createFileURL(state, payload) {
+      state.blogPhotoFileURL = payload;
+    },
+    openPhotoPreview(state) {
+      state.blogPhotoPreview = !state.blogPhotoPreview;
+    },
   },
   actions: {
     async getCurrentUser({commit}) {

@@ -6,6 +6,8 @@ import Register from "../views/Register.vue"
 import ResetPassword from "../views/ResetPassword.vue"
 import Blogs from "../views/Blogs.vue"
 
+import CreatePost from "../views/CreatePost.vue"
+import BlogPreview from "../views/BlogPreview.vue"
 Vue.use(VueRouter);
 
 const routes = [
@@ -34,6 +36,16 @@ const routes = [
     name: "Blogs",
     component: Blogs,
   },
+  {
+    path: "/CreatePost",
+    name: "CreatePost",
+    component: CreatePost,
+  },
+  {
+    path: "/Post-Preview",
+    name: "BlogPreview",
+    component: BlogPreview,
+  }
 ];
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
   <li class="nav-item" @click="toggleSubNavMobile">
-    <span>{{ data.content }}</span>
+    <span @click="click">{{ data.content }}</span>
     <treeContents :mobileNav="mobileNav" :children="data.child" 
       :class="[(data.child.length !== 0 && mobileNav === false ) ? 'sub-nav' : 'sub-nav-mobile']"
       v-show="subNavMobile | mobileNav === false"
@@ -25,6 +25,9 @@ export default {
   methods: {
     toggleSubNavMobile() {
       this.subNavMobile = !this.subNavMobile
+    },
+    click() {
+      this.$router.push(this.data.link)
     }
   }
 };
