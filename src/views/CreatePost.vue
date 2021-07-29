@@ -217,8 +217,14 @@ export default {
     display: flex;
     margin-bottom: 32px;
 
+    @media(max-width: 750px) {
+      flex-direction: column;
+    }
+
     input:nth-child(1) {
       min-width: 300px;
+      height: 55px !important;
+      font-size: 16px;
     }
     input {
       transition: 0.5s ease-in-out all;
@@ -228,26 +234,34 @@ export default {
 
       &:focus {
         outline: none;
-        box-shadow: 0 1px 0 0 #303030;
+        // box-shadow: 0 1px 0 0 #303030;
       }
     }
 
     .upload-file {
       flex: 1;
-      margin-left: 16px;
       position: relative;
       display: flex;
+      flex-wrap: wrap;
+
+      label {
+        margin: 15px 0 0 16px;
+      }
+
       input {
         display: none;
       }
       .preview {
-        margin-left: 16px;
+        margin: 15px 0 0 16px;
         text-transform: initial;
+
       }
       span {
         font-size: 12px;
-        margin-left: 16px;
+        margin: 15px 0 0 16px;
         align-self: center;
+        display: block;
+        overflow: hidden;
       }
     }
   }

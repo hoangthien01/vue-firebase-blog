@@ -121,7 +121,6 @@ export default {
                     showUnauth: true,
                     child : [
                     ],
-
                 },
                 {
                     content: 'BLOG',
@@ -310,7 +309,7 @@ export default {
             align-items: center;
             padding: 15px;
             transition: ease all 0.3s;
-            cusor: pointer;
+            cursor: pointer;
 
             &:hover {
               color: black;

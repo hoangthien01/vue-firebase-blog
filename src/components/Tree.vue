@@ -39,10 +39,7 @@ export default {
     }
   },
   methods: {
-    toggleSubNavMobile() {
-      this.subNavMobile = !this.subNavMobile
-    },
-    changeRoute() {
+    clickNavItem() {
       this.$router.push(this.data.link)
       if(this.mobileNav)
         this.$store.commit("toggleMobileNav")
