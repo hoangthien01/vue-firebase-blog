@@ -18,11 +18,13 @@ export default new Vuex.Store({
     profileUsername: null,
     profileId: null,
     profileInitials: null,
+
     blogHTML : "Write your blog title here...",
     blogTitle: "",
     blogPhotoName: "",
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
+    
     sampleBlogCards: [
       { blogTitle: "Blog Card #1", 
         blogCoverPhoto: "stock-1",
