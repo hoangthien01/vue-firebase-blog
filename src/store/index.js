@@ -9,7 +9,8 @@ export default new Vuex.Store({
     blogTitle: "",
     blogPhotoName: "",
     blogPhotoFileURL: null,
-    blogPhotoPreview: null
+    blogPhotoPreview: null,
+    profileId: null,
   },
   mutations: {
     newBlogPost(state, payload) {
