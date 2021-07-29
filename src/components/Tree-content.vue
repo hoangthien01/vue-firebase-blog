@@ -1,5 +1,5 @@
 <template>
-  <ul >
+  <ul>
     <li v-for="(item, index) in children"  :key="index" 
       :class="[( mobileNav === false ) ? 'sub-item' : 'sub-mobile-item']">
       <tree-folder v-if="item.children" :data="item" />

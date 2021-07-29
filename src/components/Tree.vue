@@ -1,33 +1,51 @@
 <template>
-  <li class="nav-item" @click="toggleSubNavMobile">
-    <span @click="click">{{ data.content }}</span>
-    <treeContents :mobileNav="mobileNav" :children="data.child" 
-      :class="[(data.child.length !== 0 && mobileNav === false ) ? 'sub-nav' : 'sub-nav-mobile']"
+  <li v-if="mobileNav && (user || data.showUnauth)" class="nav-item mobile-nav-item">
+    <div class="mobile-nav-item-name" @click="changeRoute">{{ data.content }} </div>
+    <div v-if="mobileNav && data.child.length !== 0" class="toggle-tree"  @click="toggleSubNavMobile"> <i class="fas fa-angle-down"></i> </div>
+    <TreeContents 
+      :mobileNav="mobileNav"
+      :children="data.child" 
+      :class="{'sub-nav-mobile': data.child.length !== 0 }"
       v-show="subNavMobile | mobileNav === false"
-    >
-    </treeContents>
+    />
+  </li>
+  <li v-else-if="(user || data.showUnauth)" class="nav-item" @click="changeRoute">
+    <span>{{ data.content }}</span>
+    <TreeContents
+      :mobileNav="mobileNav"
+      :children="data.child" 
+      :class="{'sub-nav': data.child.length !== 0 }"
+      v-show="subNavMobile | mobileNav === false"
+    />
   </li>
 </template>
 
 <script>
-import treeContents from "./Tree-content.vue";
+import TreeContents from "./Tree-content.vue";
 export default {
   name: "tree",
   props: ["data" , "mobileNav"],
   components: {
-    treeContents,
+    TreeContents,
   },
   data () {
     return {
-      subNavMobile : false
+      subNavMobile : false,
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
     }
   },
   methods: {
     toggleSubNavMobile() {
       this.subNavMobile = !this.subNavMobile
     },
-    click() {
+    changeRoute() {
       this.$router.push(this.data.link)
+      if(this.mobileNav)
+        this.$store.commit("toggleMobileNav")
     }
   }
 };
@@ -38,6 +56,38 @@ export default {
 .nav-item:hover .sub-nav {
   display: block;
 }
+.mobile-nav-item {
+  display: flex !important;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+
+  div {
+    transition: ease all 0.3s;
+    &:hover {
+      background: white;
+      color: black;
+    }
+  }
+
+  .mobile-nav-item-name {
+    flex: 5;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .toggle-tree {
+    height: 56px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+
 
 .sub-nav {
   display: none;
@@ -68,6 +118,7 @@ export default {
   position: relative;
   list-style: none;
   color: #fff;
+  left: 20px;
 }
 
 </style>

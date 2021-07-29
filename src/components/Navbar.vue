@@ -1,6 +1,5 @@
 <template>
 <header>
-
   <!--PC view -->
   <nav class="container" v-show="!mobile">
     <div class="nav-links">
@@ -23,13 +22,13 @@
             </div>
             <div class="options">
               <router-link class="option" :to="{ name: 'Profile' }">
-                  <userIcon class="icon" />
-                  <p>Profile</p>
-                </router-link>
-                <router-link v-if="admin" class="option" :to="{ name: 'Admin' }">
-                  <adminIcon class="icon" />
-                  <p>Admin</p>
-                </router-link>
+                <userIcon class="icon" />
+                <p>Profile</p>
+              </router-link>
+              <router-link v-if="admin" class="option" :to="{ name: 'Admin' }">
+                <adminIcon class="icon" />
+                <p>Admin</p>
+              </router-link>
               <div @click="signOut" class="option">
                 <signOutIcon class="icon" />
                 <p>Sign Out</p>
@@ -58,19 +57,16 @@
               </div>
             </div>
             <div class="options">
-              <div class="option">
-                <router-link class="option" :to="{ name: 'Profile' }">
-                  <userIcon class="icon" />
-                  <p>Profile</p>
-                </router-link>
-              </div>
-              <div v-if="admin" class="option">
-                <router-link class="option" :to="{ name: 'Admin' }">
-                  <adminIcon class="icon" />
-                  <p>Admin</p>
-                </router-link>
-              </div>
-              <div @click="signOut" class="option">
+              <router-link class="option" :to="{ name: 'Profile' }">
+                <userIcon class="icon" />
+                <p>Profile</p>
+              </router-link>
+
+              <router-link v-if="admin" class="option" :to="{ name: 'Admin' }">
+                <adminIcon class="icon" />
+                <p>Admin</p>
+              </router-link>
+            <div @click="signOut" class="option">
                 <signOutIcon class="icon" />
                 <p>Sign Out</p>
               </div>
@@ -84,9 +80,13 @@
     <ul class="mobile-nav" v-show="mobileNav">
       <Tree class="menu-item" :mobileNav="true" :data="navItem" v-for="(navItem,index) in navItems" :key="index">
       </Tree>
-      <li class="menu-item" @click="$router.push('/Login')"> 
+      <li v-if="!user" class="menu-item oddly-mobile-nav-item" @click="$router.push('/Login')"> 
         LOGIN/REGISTER
       </li>
+      <li v-if="user" class="menu-item oddly-mobile-nav-item" @click="signOut"> 
+        SIGN OUT
+      </li>
+      
     </ul>
   </transition>
   
@@ -113,19 +113,20 @@ export default {
     return {
       profileMenu: null,
       mobile: null,
-      mobileNav : null,
       windowWidth: null,
       navItems : [
                 {
                     content: 'HOME',
                     link: '/',
+                    showUnauth: true,
                     child : [
                     ],
 
                 },
                 {
                     content: 'BLOG',
-                    link: '',
+                    link: '/blogs',
+                    showUnauth: true,
                     child : [
                       {
                         content: 'Minimalism',
@@ -187,21 +188,7 @@ export default {
                 {
                     content: 'CREATE-POST',
                     link: '/CreatePost',
-                    child : [],
-                },
-                {
-                    content: 'ỦNG HỘ',
-                    link: '',
-                    child : [],
-                },
-                {
-                    content: 'ABOUT ME',
-                    link: '',
-                    child : [],
-                },
-                {
-                    content: '日本語',
-                    link: '',
+                    showUnauth: false,
                     child : [],
                 },
       ]
@@ -219,11 +206,11 @@ export default {
         return;
       } 
       this.mobile = false;
-      this.mobileNav = false;
+      this.$store.commit('setMobileNav', false)
       return;
     },
-    toggleMobileNav () {
-      this.mobileNav = !this.mobileNav
+    toggleMobileNav() {
+      this.$store.commit('toggleMobileNav')
     },
     toggleProfileMenu() {
       this.profileMenu = !this.profileMenu
@@ -239,6 +226,9 @@ export default {
     },
     admin() {
       return this.$store.state.profileAdmin
+    },
+    mobileNav() {
+      return this.$store.state.mobileNav
     }
   }
 }
@@ -256,10 +246,6 @@ export default {
     font-weight: 400;
     letter-spacing: 1px;
     cursor: pointer;
-
-    &:hover {
-      color: #d3b062;
-    }
 }
 
 .profile {
@@ -380,8 +366,10 @@ header {
       .menu-item {
         display: inline-block;
         text-align: center;
+        &:hover {
+          color: #d3b062;
+        }
         @extend .link-template
-
       }
     }
     .login-register {
@@ -405,7 +393,6 @@ header {
   }
 
   .mobile-nav {
-    padding: 20px;
     width: 70%;
     max-width: 250px;
     display: flex;
@@ -421,8 +408,20 @@ header {
       text-align: left;
       width: 100%;
       color: #fff;
+      padding: 0;
+
       @extend .link-template
     }
+
+    .oddly-mobile-nav-item {
+      padding: 20px;
+      transition: ease all 0.3s;
+      &:hover {
+        background: white;
+        color: black;
+      }
+    }
+
   }
 
   .mobile-nav-enter-active,

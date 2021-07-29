@@ -45,7 +45,11 @@ const routes = [
     path: "/Post-Preview",
     name: "BlogPreview",
     component: BlogPreview,
-  }
+  },
+  {
+    path: "/Profile",
+    name: "Profile"
+  },
 ];
 
 const router = new VueRouter({

@@ -62,7 +62,7 @@ import instagramIcon from "../assets/Icons/instagram-brands.svg"
 import youtubeIcon from "../assets/Icons/youtube-brands.svg"
 import twitterIcon from "../assets/Icons/twitter-brands.svg"
 export default {
-  name: "footer",
+  name: "MyFooter",
   components: {
     instagramIcon, youtubeIcon, twitterIcon
   },

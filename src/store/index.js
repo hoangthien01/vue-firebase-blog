@@ -25,6 +25,8 @@ export default new Vuex.Store({
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
     
+    mobileNav : null,
+
     sampleBlogCards: [
       { blogTitle: "Blog Card #1", 
         blogCoverPhoto: "stock-1",
@@ -46,6 +48,13 @@ export default new Vuex.Store({
     editPost: null,
   },
   mutations: {
+    setMobileNav(state, payload) {
+      state.mobileNav = payload
+    },
+    toggleMobileNav (state) {
+      state.mobileNav = !state.mobileNav
+    },
+  
     updateUser(state, payload) {
       state.user = payload
     },
@@ -60,6 +69,7 @@ export default new Vuex.Store({
       state.profileInitials =
         state.profileFirstName.match(/(\b\S)?/g).join("") + state.profileLastName.match(/(\b\S)?/g).join("");
     },
+
     toggleEditPost(state, payload) {
       state.editPost = payload
       console.log(state.editPost)
