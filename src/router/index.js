@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import ResetPassword from "../views/ResetPassword.vue"
+import Blogs from "../views/Blogs.vue"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,8 +28,12 @@ const routes = [
     path: "/ResetPassword",
     name: "ResetPassword",
     component: ResetPassword,
-  }
-  
+  },
+  {
+    path: "/blogs",
+    name: "Blogs",
+    component: Blogs,
+  },
 ];
 
 const router = new VueRouter({

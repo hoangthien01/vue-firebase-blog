@@ -106,6 +106,33 @@ button {
     fill: #b68723;
   }
 }
+.arrow-light {
+  margin-left: 8px;
+  width: 12px;
+  path {
+    fill: #fff;
+  }
+}
+
+button, .router-button {
+  transition: 0.5s ease all;
+  cursor: pointer;
+  margin-top: 24px;
+  padding: 12px 24px;
+  background-color: #303030;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #b68723;
+  }
+}
+
 .blog-card-wrap {
   position: relative;
   padding: 80px 16px;
