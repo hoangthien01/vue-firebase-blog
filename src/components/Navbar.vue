@@ -1,5 +1,7 @@
 <template>
 <header>
+
+  <!--PC view -->
   <nav class="container" v-show="!mobile">
     <div class="nav-links">
       <ul>
@@ -7,6 +9,7 @@
         </Tree>
       </ul>
     </div>
+
     <div v-if="user" class="profile" @click="toggleProfileMenu">
       <span>{{ this.$store.state.profileInitials }}</span>
       <div v-show="profileMenu" class="profile-menu">
@@ -19,18 +22,14 @@
               </div>
             </div>
             <div class="options">
-              <div class="option">
-                <router-link class="option" :to="{ name: 'Profile' }">
+              <router-link class="option" :to="{ name: 'Profile' }">
                   <userIcon class="icon" />
                   <p>Profile</p>
                 </router-link>
-              </div>
-              <div v-if="admin" class="option">
-                <router-link class="option" :to="{ name: 'Admin' }">
+                <router-link v-if="admin" class="option" :to="{ name: 'Admin' }">
                   <adminIcon class="icon" />
                   <p>Admin</p>
                 </router-link>
-              </div>
               <div @click="signOut" class="option">
                 <signOutIcon class="icon" />
                 <p>Sign Out</p>
@@ -38,6 +37,7 @@
             </div>
           </div>
     </div>
+
     <div v-else class="login-register">
       <li class="menu-item" @click="$router.push('/Login')"> 
         LOGIN/REGISTER
@@ -45,6 +45,7 @@
     </div>
   </nav>
   
+  <!-- Mobile view -->
   <div v-if="user && mobile" class="profile profile-mobile" @click="toggleProfileMenu">
       <span>{{ this.$store.state.profileInitials }}</span>
       <div v-show="profileMenu" class="profile-menu">
@@ -76,6 +77,7 @@
             </div>
           </div>
   </div>
+
   <menuIcon @click="toggleMobileNav" class="menu-icon" v-show="mobile"/>
   
   <transition name="mobile-nav" >
@@ -116,11 +118,14 @@ export default {
       navItems : [
                 {
                     content: 'HOME',
+                    goto: {name: 'Home'},
                     child : [
                     ],
+
                 },
                 {
                     content: 'BLOG',
+                    goto: {name: 'Blogs'},
                     child : [
                       {
                         content: 'Minimalism',
@@ -169,22 +174,8 @@ export default {
                     ],
                 },
                 {
-                    content: 'YOUTUBE',
-                    child : [
-                    ],
-                },
-                {
-                    content: 'ỦNG HỘ',
-                    child : [
-                    ],
-                },
-                {
                     content: 'ABOUT ME',
-                    child : [
-                    ],
-                },
-                {
-                    content: '日本語',
+                    goto: {},
                     child : [
                     ],
                 },
@@ -247,8 +238,8 @@ export default {
 }
 
 .profile {
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       margin: 0 20px;
       border-radius: 50%;
       display: flex;
@@ -265,6 +256,7 @@ export default {
         width: 250px;
         background-color: #252525;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+       
 
         .info {
           display: flex;
@@ -282,11 +274,14 @@ export default {
             justify-content: center;
             align-items: center;
             border-radius: 50%;
+            cursor: default;
           }
+
           .right {
             flex: 1;
             margin-left: 24px;
-            
+            cursor: initial;
+
             p {
               font-size: 12px;
             }
@@ -297,15 +292,19 @@ export default {
         }
 
         .options {
-          padding: 15px;
-          
           .option {
             text-decoration: none;
             color: #fff;
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
+            padding: 15px;
+            transition: ease all 0.3s;
+            cusor: pointer;
 
+            &:hover {
+              color: black;
+              background-color: white;
+            }
             .icon {
               width: 18px;
               height: auto;
@@ -327,7 +326,7 @@ export default {
 
 .profile-mobile {
   position: absolute;
-  top: 5px;
+  top: 7.5px;
   .profile-menu {
     top: 55px;
     left: 0px;
