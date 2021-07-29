@@ -34,7 +34,10 @@ export default {
     this.checkActiveNav()
     
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user.uid)
+      this.$store.commit("updateUser", user)
+      if(user) {
+        this.$store.dispatch("getCurrentUser")
+      }
     });
 
   },

@@ -3,6 +3,7 @@
     <Modal v-show="modalActive" :modalMessage="modalMessage" v-on:close-modal="closeModal" />
     <div class="background"></div>
     <form class="login-form">
+      <div class="home"> <router-link class="router-link" :to="{name: 'Home'}"> Trang chủ </router-link></div>
       <div class="login-suggest">
         Trở lại 
         <router-link class="router-link" :to="{ name: 'Login' }">
@@ -31,7 +32,7 @@ export default {
   components: { EmailIcon, Modal },
   data() {
     return {
-      modalActive: true,
+      modalActive: false,
       modalMessage: 'test message hehehehehe',
     }
   },
@@ -45,6 +46,13 @@ export default {
 
 
 <style lang="scss" scoped>
+.router-link {
+        color: black;
+        &:hover {
+          color: #d3b062;
+        }
+      }
+
 .form-res-wrap { 
   overflow: hidden;
   display: flex;
@@ -67,11 +75,14 @@ export default {
       padding: 0 50px;
     }
 
+    .home {
+      position: absolute;
+      top: 20px;
+    }
+
     .login-suggest {
       margin-bottom: 32px;
-      .router-link {
-        color: black;
-      }
+      
     }
 
     h2 {
@@ -127,6 +138,8 @@ export default {
     display: none;
     flex: 1.8;
     background: url("../assets/background.jpg");
+    transform: scaleX(-1);
+    background-position: center;
     background-size: cover;
     @media(min-width: 900px) {
       display: initial;

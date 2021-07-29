@@ -2,6 +2,7 @@
   <div class="form-res-wrap">
     <div class="background"></div>
     <form class="login-form">
+      <div class="home"> <router-link class="router-link" :to="{name: 'Home'}"> Trang chủ </router-link></div>
       <div class="register-suggest">
         Bạn chưa có tài khoản?
         <router-link class="router-link" :to="{ name: 'Register' }">
@@ -66,6 +67,13 @@ export default {
 
 
 <style lang="scss" scoped>
+.router-link {
+        color: black;
+        &:hover {
+          color: #d3b062;
+        }
+      }
+
 .form-res-wrap { 
   overflow: hidden;
   display: flex;
@@ -87,12 +95,12 @@ export default {
     @media(min-width: 900px) {
       padding: 0 50px;
     }
-
+    .home {
+      position: absolute;
+      top: 20px;
+    }
     .register-suggest {
       margin-bottom: 32px;
-      .router-link {
-        color: black;
-      }
     }
 
     h2 {
@@ -160,6 +168,8 @@ export default {
     display: none;
     flex: 1.8;
     background: url("../assets/background.jpg");
+    transform: scaleX(-1);
+    background-position: center;
     background-size: cover;
     @media(min-width: 900px) {
       display: initial;

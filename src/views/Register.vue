@@ -2,6 +2,11 @@
   <div class="form-res-wrap">
     <div class="background"></div>
     <form class="register-form">
+      <div class="home">
+        <router-link class="router-link" :to="{ name: 'Home' }">
+          Trang chủ
+        </router-link>
+      </div>
       <div class="login-suggest">
         Đã có tài khoản?
         <router-link class="router-link" :to="{ name: 'Login' }">
@@ -69,26 +74,29 @@ export default {
         this.email !== "" &&
         this.password !== ""
       ) {
-        this.error = false
-        this.errorMessage = ''
-        const firebaseAuth = await firebase.auth()
-        const createUser = await firebaseAuth.createUserWithEmailAndPassword(this.email, this.password)
-        const result = await createUser
-        const dataBase = db.collection("users").doc(result.user.uid)
+        this.error = false;
+        this.errorMessage = "";
+        const firebaseAuth = await firebase.auth();
+        const createUser = await firebaseAuth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        const result = await createUser;
+        const dataBase = db.collection("users").doc(result.user.uid);
         await dataBase.set({
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,
           email: this.email,
-        })
-        
-        this.$router.push({ name: "Home" })
-        return
+        });
+
+        this.$router.push({ name: "Home" });
+        return;
       }
 
-      this.error = true
-      this.errorMessage = "Xin hãy nhập đủ thông tin!"
-      return
+      this.error = true;
+      this.errorMessage = "Xin hãy nhập đủ thông tin!";
+      return;
     },
   },
 };
@@ -96,6 +104,13 @@ export default {
 
 
 <style lang="scss" scoped>
+.router-link {
+  color: black;
+  &:hover {
+    color: #d3b062;
+  }
+}
+
 .form-res-wrap {
   overflow: hidden;
   display: flex;
@@ -118,11 +133,13 @@ export default {
       padding: 0 50px;
     }
 
+    .home {
+      position: absolute;
+      top: 20px;
+    }
+
     .login-suggest {
       margin-bottom: 32px;
-      .router-link {
-        color: black;
-      }
     }
 
     h2 {
@@ -175,6 +192,8 @@ export default {
     display: none;
     flex: 1.8;
     background: url("../assets/background.jpg");
+    transform: scaleX(-1);
+    background-position: center;
     background-size: cover;
     @media (min-width: 900px) {
       display: initial;
