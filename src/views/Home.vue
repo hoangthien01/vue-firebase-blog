@@ -4,7 +4,7 @@
     <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">
-        <h3>Xem thêm những blogs gần đây <Arrow class="arrow"/></h3>
+        <h3 @click="$router.push({ path: '/blogs'})">Xem thêm những blogs gần đây <Arrow class="arrow"/></h3>
         <div class="blog-cards">
           <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
         </div>

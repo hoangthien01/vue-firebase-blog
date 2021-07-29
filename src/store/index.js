@@ -35,7 +35,8 @@ export default new Vuex.Store({
         blogCoverPhoto: "stock-4",
         blogDate: "July 4, 2021"
       },
-    ]
+    ],
+    editPost: null,
   },
   mutations: {
     updateUser(state, payload) {
@@ -51,6 +52,10 @@ export default new Vuex.Store({
     setProfileInitials(state) {
       state.profileInitials =
         state.profileFirstName.match(/(\b\S)?/g).join("") + state.profileLastName.match(/(\b\S)?/g).join("");
+    },
+    toggleEditPost(state, payload) {
+      state.editPost = payload
+      console.log(state.editPost)
     }
   },
   actions: {
