@@ -4,10 +4,18 @@
     <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">
-        <h3>Xem thêm những blogs gần đây</h3>
+        <h3>Xem thêm những blogs gần đây <Arrow class="arrow"/></h3>
         <div class="blog-cards">
-          <BlogCard :post="post" v-for="(post, index) in sampleBlogCard" :key="index" />
+          <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
         </div>
+      </div>
+    </div>
+    <div class="updates">
+      <div class="container">
+        <h2>Never miss a post. Register for your  free account today!</h2>
+        <router-link class="router-button" to="/Register">
+          Register for FireBlogs <Arrow class="arrow-light" style="color: white;"/>
+        </router-link>
       </div>
     </div>
   </div>
@@ -16,9 +24,10 @@
 <script>
 import BlogPost from "../components/Blogs/BlogPost.vue"
 import BlogCard from "../components/Blogs/BlogCard.vue"
+import Arrow from "../assets/Icons/arrow-right-light.svg";
 export default {
   name: "Home",
-  components: { BlogPost, BlogCard },
+  components: { BlogPost, BlogCard, Arrow },
   data() {
     return {
       welcomeScreen: {
@@ -39,24 +48,12 @@ export default {
           blogCoverPhoto: "designed-for-everyone",
         }
       ],
-      sampleBlogCard: [
-        { blogTitle: "Blog Card #1", 
-          blogCoverPhoto: "stock-1",
-          blogDate: "July 4, 2021"
-        },
-        { blogTitle: "Blog Card #2", 
-          blogCoverPhoto: "stock-1",
-          blogDate: "July 4, 2021"
-        },
-        { blogTitle: "Blog Card #3", 
-          blogCoverPhoto: "stock-1",
-          blogDate: "July 4, 2021"
-        },
-        { blogTitle: "Blog Card #4", 
-          blogCoverPhoto: "stock-1",
-          blogDate: "July 4, 2021"
-        },
-      ]
+      
+    }
+  },
+  computed: {
+    sampleBlogCards(){
+      return this.$store.state.sampleBlogCards;
     }
   }
 };
@@ -65,9 +62,60 @@ export default {
 <style lang="scss" scoped>
 .blog-card-wrap {
   h3 {
+    display: block;
+    background-color: #fff;
+    width: fit-content;
+    padding: 10px 35px;
     font-weight: 300;
-    font-size: 28px;
+    font-size: 26px;
     margin-bottom: 32px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      color: black;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    &:hover .arrow{
+      transform: translateX(15px);
+    }
+  }
+  .arrow {
+    width: 16px;
+    transition: 0.4s;
+  }
+}
+.updates {
+  .container {
+    padding: 100px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media (min-width:800px) {
+      padding: 125px 25px;
+      flex-direction: row;
+    }
+
+    .router-button {
+      display: flex;
+      font-size: 14px;
+      text-decoration: none;
+      @media (min-width:800px) {
+        margin-left: auto;
+      }
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 300;
+      max-width: 425px;
+      width: 100%;
+      text-transform: uppercase;
+      text-align: center;
+      @media (min-width:800px) {
+        text-align: initial;
+        font-size: 40px;
+      }
+    }
   }
 }
 </style>
