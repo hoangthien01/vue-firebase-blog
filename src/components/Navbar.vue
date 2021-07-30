@@ -248,6 +248,7 @@ export default {
 }
 
 .profile {
+      position: relative;
       width: 40px;
       height: 40px;
       margin: 0 20px;
@@ -261,12 +262,13 @@ export default {
   
       .profile-menu {
         position: absolute;
-        top: 60px;
-        right: 30px;
+        top: 120%;
+        right: 0;
         width: 250px;
         background-color: #252525;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-       
+        border-radius: 5px;
+        text-align: left;
 
         .info {
           display: flex;
@@ -338,8 +340,7 @@ export default {
   position: absolute;
   top: 7.5px;
   .profile-menu {
-    top: 55px;
-    left: 0px;
+    left: -5px;
   }
 }
 
