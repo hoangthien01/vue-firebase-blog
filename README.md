@@ -8,6 +8,8 @@
  <a href="https://github.com/cyantiz"> Hoàng Nhân </a>  <br>
 <h4/>
   
+Deploy: https://sleepy-poitras-15ffd2.netlify.app/
+ 
 ## Project setup
 ```
 npm install
