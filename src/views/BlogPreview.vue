@@ -61,6 +61,7 @@ export default {
     margin-bottom: 16px;
     font-weight: 300;
     font-size: 32px;
+    text-align: center;
   }
   img {
     width: 100%;
