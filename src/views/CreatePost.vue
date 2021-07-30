@@ -115,7 +115,7 @@ export default {
               await this.$store.dispatch("getPost");
               this.loading = false;
               this.$store.commit("setDefaultBlogPost");
-              this.$router.push({ name: "ViewBlog", params: { blogid: dataBase.id } });
+              this.$router.push({ name: "ViewBlog", params: { blogID: dataBase.id } });
             }
           );
           return;
