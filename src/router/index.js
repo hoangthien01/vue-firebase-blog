@@ -4,7 +4,9 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import ResetPassword from "../views/ResetPassword.vue"
+
 import Blogs from "../views/Blogs.vue"
+import ViewBlog from "../views/ViewBlog.vue"
 
 import CreatePost from "../views/CreatePost.vue"
 import BlogPreview from "../views/BlogPreview.vue"
@@ -35,6 +37,14 @@ const routes = [
     path: "/blogs",
     name: "Blogs",
     component: Blogs,
+  },
+  {
+    path: "/blog:blogID",
+    name: "ViewBlog",
+    component: ViewBlog,
+    meta: {
+      title: "View Blog Post",
+    }
   },
   {
     path: "/CreatePost",
