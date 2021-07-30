@@ -146,7 +146,7 @@ export default {
         left: calc(50% - 5px);
         position: absolute;
         border: 10px solid;
-        border-color: #756f6f transparent transparent transparent;
+        border-color: #ececec transparent transparent transparent;
         top: calc(100%);
       }
       @media (min-width: 800px) {
@@ -191,9 +191,10 @@ export default {
         margin: 0 auto;
         border-radius: 3px;
         transition: all .5s ease-in-out;
-        border: none;
+        border: 1px solid transparent;
         margin-bottom: 24px;
         background-color: transparent;
+        color: #fff;
 
         &:focus {
           border: 1px solid #d3b062;
@@ -234,6 +235,10 @@ export default {
             width: auto;
             height: 25px;
             color: #fff;
+
+            &:hover  {
+              transform: scale(1.1);
+            }
           }
         }
       }

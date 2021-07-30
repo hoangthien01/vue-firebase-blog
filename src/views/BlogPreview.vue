@@ -1,6 +1,10 @@
 <template>
   <div class="post-view">
     <div class="container quillWrapper">
+      <div class="back" @click="$router.push('/CreatePost')">
+        <i class="fas fa-angle-left"></i>
+        Back
+      </div>
       <h2>{{ this.blogTitle }}</h2>
       <img :src="blogCoverPhoto" alt="" />
       <div class="post-content ql-editor" v-html="blogHTML"></div>
@@ -31,6 +35,24 @@ export default {
   .container {
     max-width: 1000px;
     padding: 60px 25px;
+
+    .back {
+      font-size: 18px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      i {
+        font-weight: 300;
+        font-size: 25px;
+        margin-right: 3px;
+      }
+    }
   }
   .ql-editor {
     padding: 0;
