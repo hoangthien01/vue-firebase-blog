@@ -19,6 +19,7 @@ export default new Vuex.Store({
     profileId: null,
     profileInitials: null,
 
+    file: null,
     blogHTML : "Write your blog title here...",
     blogTitle: "",
     blogPhotoName: "",
@@ -80,6 +81,9 @@ export default new Vuex.Store({
     updateBlogTitle(state, payload) {
       state.blogTitle = payload;
     },
+    updateFile(state, payload) {
+      state.file = payload;
+    },
     fileNameChange(state, payload) {
       state.blogPhotoName = payload;
     },
@@ -89,6 +93,14 @@ export default new Vuex.Store({
     openPhotoPreview(state) {
       state.blogPhotoPreview = !state.blogPhotoPreview;
     },
+    setDefaultBlogPost (state) {
+      state.blogTitle = "",
+      state.blogPhotoName = "",
+      state.blogHTML = "Write your blog title here..." ,
+      state.file = null,
+      state.blogPhotoFileURL = null,
+      state.blogPhotoPreview = null
+    }
   },
   actions: {
     async getCurrentUser({commit}) {

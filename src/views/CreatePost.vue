@@ -40,7 +40,7 @@ export default {
   name: 'createPost',
   data() {
     return {
-      file: null,
+      // file: null,
       error: null,
       errorMsg: null,
       loading: null,
@@ -114,6 +114,7 @@ export default {
               });
               await this.$store.dispatch("getPost");
               this.loading = false;
+              this.$store.commit("setDefaultBlogPost");
               this.$router.push({ name: "ViewBlog", params: { blogid: dataBase.id } });
             }
           );
@@ -147,6 +148,14 @@ export default {
       },
       set(payload) {
         this.$store.commit("updateBlogTitle", payload);
+      },
+    },
+    file: {
+      get() {
+        return this.$store.state.file;
+      },
+      set(payload) {
+        this.$store.commit("updateFile", payload);
       },
     },
     blogHTML: {
