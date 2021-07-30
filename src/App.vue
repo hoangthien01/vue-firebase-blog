@@ -32,6 +32,7 @@ export default {
   },
   created() {
     this.checkActiveNav()
+    this.$store.dispatch("getPost");
     
     firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit("updateUser", user)
@@ -39,7 +40,6 @@ export default {
         this.$store.dispatch("getCurrentUser")
       }
     });
-
   },
   watch: {
     $route() {

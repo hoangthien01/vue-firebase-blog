@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <BlogPost :post="welcomeScreen" />
-    <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
+    <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">
         <h3 @click="$router.push({ path: '/blogs'})">Xem thêm những blogs gần đây <Arrow class="arrow"/></h3>
         <div class="blog-cards">
-          <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index" />
+          <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
         </div>
       </div>
     </div>
@@ -35,26 +35,16 @@ export default {
         blogPost: "Mình là hehe. Chào mừng bạn đến với blog của mình. Đây là nơi mình thường xuyên chia sẻ về những câu chuyện nho nhỏ trong đời sống thường ngày của mình. Mình tin rằng, hạnh phúc đến từ những điều giản dị nhất. Hi vọng bạn sẽ tìm thấy được sự bình yên và một chút niềm vui khi đọc blog của mình.",
         welcomeScreen: true,
         photo: "minimalism",
-      },
-      sampleBlogPost: [
-        {
-          title: "This is a filter Title!",
-          blogHTML: "This is blog post filter content",
-          blogCoverPhoto: "beautiful-stories",
-        },
-        {
-          title: "This is a filter Title!2",
-          blogHTML: "This is blog post filter content",
-          blogCoverPhoto: "designed-for-everyone",
-        }
-      ],
-      
+      },      
     }
   },
   computed: {
-    sampleBlogCards(){
-      return this.$store.state.sampleBlogCards;
-    }
+    blogPostsFeed(){
+      return this.$store.getters.blogPostsFeed;
+    },
+    blogPostsCards(){
+      return this.$store.getters.blogPostsCards;
+    },
   }
 };
 </script>
