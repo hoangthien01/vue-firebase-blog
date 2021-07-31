@@ -89,6 +89,8 @@ export default {
 <style lang="scss" scoped>
 .profile {
   position: relative;
+  margin-top: 55px;
+
   .container {
     max-width: 1000px;
     padding: 60px 25px;
