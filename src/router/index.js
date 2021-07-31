@@ -4,12 +4,14 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import ResetPassword from "../views/ResetPassword.vue"
+import Profile from "../views/Profile.vue"
 
 import Blogs from "../views/Blogs.vue"
 import ViewBlog from "../views/ViewBlog.vue"
 
 import CreatePost from "../views/CreatePost.vue"
 import BlogPreview from "../views/BlogPreview.vue"
+// import { component } from "vue/types/umd";
 Vue.use(VueRouter);
 
 const routes = [
@@ -57,8 +59,9 @@ const routes = [
     component: BlogPreview,
   },
   {
-    path: "/Profile",
-    name: "Profile"
+    path: "/profile",
+    name: "Profile",
+    component: Profile
   },
 ];
 
