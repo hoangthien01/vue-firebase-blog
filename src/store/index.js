@@ -65,7 +65,6 @@ export default new Vuex.Store({
 
     toggleEditPost(state, payload) {
       state.editPost = payload
-      console.log(state.editPost)
     },
     newBlogPost(state, payload) {
       state.blogHTML = payload;
@@ -118,7 +117,6 @@ export default new Vuex.Store({
           state.blogPosts.push(data);
         }
         state.postLoaded = true;
-        console.log(state.blogPosts)
       });
     }
   },

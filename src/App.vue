@@ -59,7 +59,8 @@ export default {
   // font-family: "Quicksand", sans-serif;
 }
 
-.app {
+#app {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -124,7 +125,7 @@ button, .router-button {
   padding: 12px 24px;
   background-color: #303030;
   color: #fff;
-  border-radius: 20px;
+  border-radius: 3px;
   border: none;
   text-transform: uppercase;
   text-decoration: none;

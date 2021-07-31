@@ -59,7 +59,7 @@ $darkYellow: #b68723;
     transform: scale(1.08);
     object-fit: cover;
   }
-  &:hover .link {
+  .link:hover {
     color: $darkYellow;
   }
 

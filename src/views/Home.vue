@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
         <h2>Never miss a post. Register for your  free account today!</h2>
         <router-link class="router-button" to="/Register">
@@ -45,6 +45,9 @@ export default {
     blogPostsCards(){
       return this.$store.getters.blogPostsCards;
     },
+    user() {
+      return this.$store.state.user
+    }
   }
 };
 </script>

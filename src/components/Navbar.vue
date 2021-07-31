@@ -347,7 +347,7 @@ export default {
 }
 
 header {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -356,6 +356,8 @@ header {
   background-color: #ececec;
   font-family: 'Montserrat',sans-serif;
   text-align: right;
+  box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 8px -1px rgba(0, 0, 0, 0.06);
+  
 
   .container {
     display: flex;
