@@ -16,7 +16,6 @@
           <EmailIcon class="icon" />
           <input type="text" placeholder="Email" v-model="email" />
         </div>
-        <div v-show="error" class="error">{{ errorMessage }}</div>
       </div>
       <button @click.prevent="resetPassword">ĐĂNG NHẬP</button>
     </form>
@@ -27,16 +26,38 @@
 import EmailIcon from '../assets/Icons/envelope-regular.svg';
 import Modal from '../components/Modal.vue'
 
+import firebase from "firebase/app";
+import "firebase/auth";
+
 export default {
   name: "Login",
   components: { EmailIcon, Modal },
   data() {
     return {
+      email: "",
       modalActive: false,
       modalMessage: 'test message hehehehehe',
+      loading: null, 
     }
   },
   methods: {
+    resetPassword() {
+      this.loading = true;
+      firebase
+        .auth()
+        .sendPasswordResetEmail(this.email)
+        .then(() => {
+          this.modalMessage = "If your account exists, you will receive a email";
+          this.loading = false;
+          this.modalActive = true;
+          this.email = ""
+        })
+        .catch((err) => {
+          this.modalMessage = err.message;
+          this.loading = false;
+          this.modalActive = true;
+        });
+    },
     closeModal() {
       this.modalActive = false;
     }
