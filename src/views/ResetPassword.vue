@@ -30,7 +30,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 export default {
-  name: "Login",
+  name: "ResetPassword",
   components: { EmailIcon, Modal },
   data() {
     return {

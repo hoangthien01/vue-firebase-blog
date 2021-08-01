@@ -37,7 +37,7 @@
         </div>
         <div v-show="error" class="error">{{ errorMessage }}</div>
       </div>
-      <button @click.prevent="signIn">ĐĂNG KÝ</button>
+      <button @click.prevent="signUp">ĐĂNG KÝ</button>
     </form>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
     };
   },
   methods: {
-    async signIn() {
+    async signUp() {
       if (
         this.firstName !== "" &&
         this.lastName !== "" &&
@@ -77,20 +77,24 @@ export default {
         this.error = false;
         this.errorMessage = "";
         const firebaseAuth = await firebase.auth();
-        const createUser = await firebaseAuth.createUserWithEmailAndPassword(
+        const createUser =  firebaseAuth.createUserWithEmailAndPassword(
           this.email,
           this.password
-        );
-        const result = await createUser;
-        const dataBase = db.collection("users").doc(result.user.uid);
-        await dataBase.set({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          username: this.username,
-          email: this.email,
+        ).then( async () => {
+          const result = await createUser;
+          const dataBase = db.collection("users").doc(result.user.uid);
+          await dataBase.set({
+            firstName: this.firstName,
+            lastName: this.lastName,
+            username: this.username,
+            email: this.email,
+          });
+          this.$router.push({ name: "Home" });
+        }).catch( (err) => {
+          this.error = true;
+          this.errorMessage = err.message
         });
-
-        this.$router.push({ name: "Home" });
+        
         return;
       }
 
