@@ -8,6 +8,7 @@ import Profile from "../views/Profile.vue"
 
 import Blogs from "../views/Blogs.vue"
 import ViewBlog from "../views/ViewBlog.vue"
+import EditBlog from "../views/EditBlog.vue"
 
 import CreatePost from "../views/CreatePost.vue"
 import BlogPreview from "../views/BlogPreview.vue"
@@ -46,6 +47,14 @@ const routes = [
     component: ViewBlog,
     meta: {
       title: "View Blog Post",
+    }
+  },
+  {
+    path: "/edit-blog/:blogID",
+    name: "EditBlog",
+    component: EditBlog,
+    meta: {
+      title: "Edit Blog Post",
     }
   },
   {
