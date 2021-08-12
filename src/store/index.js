@@ -66,6 +66,9 @@ export default new Vuex.Store({
     toggleEditPost(state, payload) {
       state.editPost = payload
     },
+    filterBlogPost(state, payload) {
+      state.blogPosts = state.blogPosts.filter(post => post.blogID !== payload)
+    },
     newBlogPost(state, payload) {
       state.blogHTML = payload;
     },
@@ -127,6 +130,11 @@ export default new Vuex.Store({
         }
         state.postLoaded = true;
       });
+    },
+    async deletePost({ commit }, payload) {
+      const getPost = await db.collection("blogPosts").doc(payload);
+      await getPost.delete();
+      commit('filterBlogPost', payload);
     },
     async updateUserSettings({ commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);
