@@ -1,5 +1,5 @@
 <template>
-  <div class="post-view">
+  <div class="post-view" v-if="currentBlog">
     <div class="container quillWrapper">
       <h2>{{ this.currentBlog[0].blogTitle }}</h2>
       <h4>Posted on: {{ new Date(this.currentBlog[0].blogDate).toLocaleString("en-us", { dateStyle: "long" }) }}</h4>

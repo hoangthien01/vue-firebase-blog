@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="this.$store.state.postLoaded">
     <Navbar v-show="activeNav"/>
     <router-view/>
     <MyFooter v-show="activeNav"/>
