@@ -78,6 +78,8 @@ export default {
   overflow: hidden;
   display: flex;
   height: 100vh;
+  position: absolute;
+  top: 0;
   justify-content: center;
   align-self: center;
   margin: 0 auto;

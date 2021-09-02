@@ -33,7 +33,6 @@ export default {
 
 <style lang="scss" scoped>
 .blog-card-wrap {
-  margin-top: 55px;
 
   .blog-cards {
     position: relative;

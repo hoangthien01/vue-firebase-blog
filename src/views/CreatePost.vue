@@ -173,7 +173,6 @@ export default {
 <style lang="scss">
 .create-post {
   position: relative;
-  margin-top: 55px;
   height: 100%;
   button {
     margin-top: 0;

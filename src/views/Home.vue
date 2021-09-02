@@ -53,9 +53,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  margin-top: 55px;
-}
 .blog-card-wrap {
   h3 {
     display: block;

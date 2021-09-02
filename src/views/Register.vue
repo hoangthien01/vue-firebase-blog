@@ -116,6 +116,8 @@ export default {
 }
 
 .form-res-wrap {
+  position: absolute;
+  top: 0;
   overflow: hidden;
   display: flex;
   height: 100vh;

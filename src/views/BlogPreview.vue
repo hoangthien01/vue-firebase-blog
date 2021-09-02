@@ -32,7 +32,6 @@ export default {
 <style lang="scss">
 .post-view {
   min-height: 100%;
-  margin-top: 55px;
 
   .container {
     max-width: 1000px;
