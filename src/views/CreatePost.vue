@@ -191,6 +191,7 @@ export default {
   .container {
     position: relative;
     height: 100%;
+    max-width: 950px;
     padding: 10px 25px 60px;
   }
   // error styling
@@ -253,6 +254,8 @@ export default {
   }
   .editor {
     height: 60vh;
+    width: 100%;
+    max-width: 950px;
     display: flex;
     flex-direction: column;
 

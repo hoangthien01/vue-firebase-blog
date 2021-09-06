@@ -6,7 +6,9 @@
         Back
       </div>
       <h2>{{ this.blogTitle }}</h2>
-      <img :src="blogCoverPhoto" alt="" />
+      <div class="blogCoverPhoto">
+        <img :src="blogCoverPhoto" alt="" />
+      </div>
       <div class="post-content ql-editor" v-html="blogHTML"></div>
     </div>
   </div>
@@ -53,6 +55,17 @@ export default {
         margin-right: 3px;
       }
     }
+
+    .blogCoverPhoto {
+      width: 100%;
+      overflow: hidden;
+      max-height: 500px;
+
+      img {
+        object-fit: contain;
+        width: 100%;
+      }
+    }
   }
   .ql-editor {
     padding: 0;
@@ -64,7 +77,6 @@ export default {
     text-align: center;
   }
   img {
-    width: 100%;
     margin-bottom: 32px;
   }
 }
