@@ -10,14 +10,11 @@
           <router-link class="link" v-if="post.welcomeScreen" to="/Login">
             Login/Register<Arrow class="arrow arrow-light" />
           </router-link>
-          <router-link class="link" v-else :to="{
-            name: 'ViewBlog',
-            params: {blogID: this.post.blogID}
-          }">
+          <router-link class="link" v-else :to="`blog/`+this.post.blogID">
             View The Post<Arrow class="arrow arrow-light" />
           </router-link>
         </div>
-        <router-link class="link" v-if="!post.welcomeScreen && user" :to="`blog`+this.post.blogID">
+        <router-link class="link" v-if="!post.welcomeScreen && user" :to="`blog/`+this.post.blogID">
             View The Post<Arrow class="arrow arrow-light" />
         </router-link>
       </div>
