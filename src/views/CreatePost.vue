@@ -200,7 +200,7 @@ export default {
   .container {
     position: relative;
     height: 100%;
-    max-width: 950px;
+    max-width: 1078px;
     padding: 10px 25px 60px;
   }
   // error styling
@@ -298,6 +298,7 @@ export default {
 
     .ql-editor {
       padding: 20px 16px 30px;
+      overflow: hidden;
     }
   }
   

@@ -215,6 +215,7 @@ export default {
   .container {
     position: relative;
     height: 100%;
+    max-width: 1078px;
     padding: 10px 25px 60px;
   }
   // error styling

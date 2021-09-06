@@ -70,6 +70,7 @@ export default {
   }
   .ql-editor {
     padding: 0;
+    overflow: hidden;
   }
   h2 {
     margin-bottom: 16px;
