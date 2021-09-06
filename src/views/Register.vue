@@ -94,7 +94,6 @@ export default {
           this.error = true;
           this.errorMessage = err.message
         });
-        
         return;
       }
 
