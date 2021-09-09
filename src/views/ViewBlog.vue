@@ -8,12 +8,10 @@
         <img :src="this.currentBlog[0].blogCoverPhoto" alt="" />
       </div>
       <div class="post-content ql-editor" v-html="this.currentBlog[0].blogHTML"></div>
-
-       <div class="comment-input">
+      <div class="comment-input">
         <textarea type="text" placeholder="writer your comments" rows="3" v-model="message"> </textarea>
         <button @click="sendMessage">Send</button>
       </div>
-
       <div class="list-comments">
         <div v-for="(message,index) in messages" :key="'index'+index" class="comment">
           <div class="info">
@@ -87,6 +85,7 @@ export default {
 .post-view {
   h2{
     text-align: center;
+    font-weight: normal;
   }
   h4{
     color: gray;
