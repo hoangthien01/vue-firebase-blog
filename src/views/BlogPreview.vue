@@ -79,7 +79,7 @@ export default {
     text-align: center;
   }
   img {
-    margin-bottom: 32px;
+    max-width: 100%;
   }
 }
 </style>
