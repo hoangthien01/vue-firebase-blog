@@ -66,43 +66,55 @@ export default {
     };
   },
   methods: {
+    isValidEmail(email) {
+      var reg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      return reg.test(email)
+    },
+    isValidUserName(username) {
+      if(username.length < 6)
+        return false;
+      return true;
+    },
     async signUp() {
       if (
-        this.firstName !== "" &&
-        this.lastName !== "" &&
-        this.username !== "" &&
-        this.email !== "" &&
-        this.password !== ""
+        this.firstName == "" ||
+        this.lastName == "" ||
+        this.username == "" ||
+        this.email == "" ||
+        this.password == ""
       ) {
-        this.error = false;
-        this.errorMessage = "";
-        const firebaseAuth = await firebase.auth();
-        const createUser =  firebaseAuth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        ).then( async () => {
-          const result = await createUser;
-          const dataBase = db.collection("users").doc(result.user.uid);
-          await dataBase.set({
-            firstName: this.firstName,
-            lastName: this.lastName,
-            username: this.username,
-            email: this.email,
-          });
-          this.$router.push({ name: "Home" });
-        }).catch( (err) => {
-          this.error = true;
-          this.errorMessage = err.message
-        });
+        this.error = true;
+        this.errorMessage = "Xin hãy nhập đủ thông tin!";
+        return;
+      } 
+      if( !this.isValidUserName(this.username)) {
+        this.error = true;
+        this.errorMessage = "Tên tài khoản phải có độ dài lớn hơn 6";
         return;
       }
 
-      this.error = true;
-      this.errorMessage = "Xin hãy nhập đủ thông tin!";
-      return;
+      this.error = false;
+      this.errorMsg = "";
+      const firebaseAuth = await firebase.auth();
+      firebaseAuth.createUserWithEmailAndPassword(this.email, this.password).then( (result) => {
+        console.log("result", result);
+        const dataBase = db.collection("users").doc(result.user.uid);
+        dataBase.set({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          email: this.email,
+        });
+        this.$router.push({ name: "Home" });
+      }).catch( (err) => {
+        console.log(err);
+        this.error = true;
+        this.errorMessage = err.message;
+      });
+      return;      
     },
   },
-};
+};  
 </script>
 
 
