@@ -14,7 +14,7 @@
     </div>
     
     <div class="info">
-      <h4>{{ post.blogTitle }}</h4>
+      <h4><router-link class="link" :to="`blog/`+this.post.blogID">{{ post.blogTitle }} </router-link></h4>
       <h6>Posted on: {{ new Date(post.blogDate).toLocaleString('en-us', { dateStyle: "long" }) }}</h6>
       <router-link class="link" :to="`blog/`+this.post.blogID">
         View The Post <Arrow class="arrow" />
@@ -132,6 +132,9 @@ $darkYellow: #b68723;
       padding-bottom: 8px;
       font-size: 20px;
       font-weight: 300;
+      .link {
+        font-weight: 300;
+      }
     }
     h6 {
       font-weight: 400;
