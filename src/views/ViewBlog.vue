@@ -9,8 +9,12 @@
       </div>
       <div class="post-content ql-editor" v-html="this.currentBlog[0].blogHTML"></div>
       <div class="comment-input">
-        <textarea type="text" placeholder="writer your comments" rows="3" v-model="message"> </textarea>
-        <button @click="sendMessage">Send</button>
+        <p class="quantityMessages">{{this.quantityMessages}} comments</p>
+        <textarea type="text" placeholder="Writer your comments..." rows="3" v-model="message"> </textarea>
+        <div class="comment-btns">
+          <button class="btn-cancel">Cancel</button>
+          <button class="btn-send" @click="sendMessage">Send</button>
+        </div>
       </div>
       <div class="list-comments">
         <div v-for="(message,index) in messages" :key="'index'+index" class="comment">
@@ -22,6 +26,17 @@
             </div>
           </div>
           <p>{{message.text}}</p>
+          <div class="comment-emoij">
+            <div class="comment-emoij__like">
+              <i class="fal fa-thumbs-up " @click="like"></i>
+              <span>{{this.message.like}}}</span>
+            </div>
+            <div class="comment-emoij__dislike">
+              <i class="fal fa-thumbs-down" @click="dislike"></i>
+              <span>{{this.message.displike}}</span>
+            </div>
+            <span class="comment-reply">Reply</span>
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +53,7 @@ export default {
       author : {},
       message : "",
       messages: [],
+      quantityMessages : 0
     }
   },
   async mounted() {
@@ -56,6 +72,7 @@ export default {
         this.messages.sort((a,b) => {
           return parseInt(a.createdAt) - parseInt(b.createdAt)
         })
+        this.quantityMessages = this.messages.length
     })
   },
   methods : {
@@ -67,11 +84,14 @@ export default {
         'lastName' : this.$store.state.profileLastName,
         'text': this.message,
         'createdAt': Date.now(),
+        'like' : 0,
+        'dislike' : 0
       }
       db.collection("messages").add({messageInfo})
       .then(() => {
           this.message = null 
           this.messages.push(messageInfo);
+          this.quantityMessages = this.quantityMessages + 1
       })
       .catch((error) => {
           console.error("Error adding document: ", error);
@@ -102,6 +122,10 @@ export default {
       padding: 0;
     }
 
+    .quantityMessages {
+      margin: 10px 0;
+    }
+
     textarea {
       padding: 10px 20px;
       flex: 1;
@@ -110,9 +134,21 @@ export default {
       width: 100%;
     }
 
-    button {
+    .comment-btns {
       margin: 15px 0 0;
-      padding: 15px 24px;
+      display: flex;
+      justify-content: flex-end;
+
+      .btn-cancel {
+        padding: 15px 24px;
+        margin: 0 15px 0 0;
+
+      }
+
+      .btn-send {
+        padding: 15px 24px;
+        margin: 0;
+      }
     }
   }
 
@@ -137,6 +173,20 @@ export default {
           line-height: 50px;
           text-align: center;
           color: #fff;
+        }
+      }
+
+      .comment-emoij {
+        display: flex;
+        margin-top: 10px;
+
+        .comment-emoij__like, .comment-emoij__dislike {
+          margin-right: 20px ;
+          cursor: pointer;
+        }
+
+        .comment-reply {
+          cursor: pointer;
         }
       }
     }
