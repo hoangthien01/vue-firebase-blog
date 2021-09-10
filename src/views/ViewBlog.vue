@@ -11,6 +11,7 @@
       <div class="comment-input">
         <p class="quantityMessages">{{this.quantityMessages}} comments</p>
         <textarea type="text" placeholder="Writer your comments..." rows="3" v-model="message"> </textarea>
+        <p class="errorMsg">{{this.errorMsg}}</p>
         <div class="comment-btns">
           <button class="btn-cancel">Cancel</button>
           <button class="btn-send" @click="sendMessage">Send</button>
@@ -29,11 +30,11 @@
           <div class="comment-emoij">
             <div class="comment-emoij__like">
               <i class="fal fa-thumbs-up " @click="like"></i>
-              <span>{{this.message.like}}}</span>
+              <span>{{message.like}}</span>
             </div>
             <div class="comment-emoij__dislike">
               <i class="fal fa-thumbs-down" @click="dislike"></i>
-              <span>{{this.message.displike}}</span>
+              <span>{{message.dislike}}</span>
             </div>
             <span class="comment-reply">Reply</span>
           </div>
@@ -51,9 +52,10 @@ export default {
     return {
       currentBlog: null,
       author : {},
-      message : "",
+      message : '',
       messages: [],
-      quantityMessages : 0
+      quantityMessages : 0,
+      errorMsg: ""
     }
   },
   async mounted() {
@@ -77,7 +79,15 @@ export default {
   },
   methods : {
     async sendMessage() {
-      const messageInfo = {
+      if(this.message == '') {
+        this.errorMsg = "Comment not be empty"
+      }
+      if(this.$store.state.user == null) {
+        this.errorMsg = "You need to login to comments"
+      }
+      if(this.$store.state.user != null && this.message != '' ) {
+        this.errorMsg = ""
+        const messageInfo = {
         'userUID': this.$store.state.profileId,
         'blogId' : this.currentBlog[0].blogID,
         'firstName': this.$store.state.profileFirstName,
@@ -86,16 +96,23 @@ export default {
         'createdAt': Date.now(),
         'like' : 0,
         'dislike' : 0
+        }
+        db.collection("messages").add({messageInfo})
+        .then(() => {
+            this.message = '' 
+            this.messages.push(messageInfo);
+            this.quantityMessages = this.quantityMessages + 1
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
       }
-      db.collection("messages").add({messageInfo})
-      .then(() => {
-          this.message = null 
-          this.messages.push(messageInfo);
-          this.quantityMessages = this.quantityMessages + 1
-      })
-      .catch((error) => {
-          console.error("Error adding document: ", error);
-      });
+    },
+    like () {
+
+    },
+    dislike() {
+      
     }
   }
 }
@@ -132,6 +149,10 @@ export default {
       outline: none;
       font-size: 18px;
       width: 100%;
+    }
+
+    .errorMsg {
+      color: red;
     }
 
     .comment-btns {
@@ -185,6 +206,10 @@ export default {
           cursor: pointer;
         }
 
+        span {
+          margin-left: 5px;
+        }
+        
         .comment-reply {
           cursor: pointer;
         }
