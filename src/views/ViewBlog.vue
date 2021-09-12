@@ -10,7 +10,7 @@
       <div class="post-content ql-editor" v-html="this.currentBlog[0].blogHTML"></div>
       <div class="comment-input">
         <p class="quantityMessages">{{this.quantityMessages}} comments</p>
-        <textarea type="text" placeholder="Writer your comments..." rows="3" v-model="message"> </textarea>
+        <textarea type="text" placeholder="Writer your comments..." rows="3" v-model="comment"> </textarea>
         <p class="errorMsg">{{this.errorMsg}}</p>
         <div class="comment-btns">
           <button class="btn-cancel">Cancel</button>
@@ -18,23 +18,23 @@
         </div>
       </div>
       <div class="list-comments">
-        <div v-for="(message,index) in messages" :key="'index'+index" class="comment">
+        <div v-for="(comment,index) in comments" :key="'index'+index" class="comment">
           <div class="info">
-            <span>{{message.firstName.match(/(\b\S)?/g).join("") + message.lastName.match(/(\b\S)?/g).join("")}}</span>
+            <span>{{comment.firstName.match(/(\b\S)?/g).join("") + comment.lastName.match(/(\b\S)?/g).join("")}}</span>
             <div>
-              <h3>{{message.firstName}} {{message.lastName}}</h3>
-              <p>{{new Date(message.createdAt).toLocaleString("en-us", { dateStyle: "long" })}}</p>
+              <h3>{{comment.firstName}} {{comment.lastName}}</h3>
+              <p>{{new Date(comment.createdAt).toLocaleString("en-us", { dateStyle: "long" })}}</p>
             </div>
           </div>
-          <p>{{message.text}}</p>
+          <p>{{comment.text}}</p>
           <div class="comment-emoij">
-            <div class="comment-emoij__like">
-              <i class="fal fa-thumbs-up " @click="like"></i>
-              <span>{{message.like}}</span>
+            <div class="comment-emoij__like" >
+              <i class="fal fa-thumbs-up " @click="like(comment)" :class="{fas: comment.listUserUIDLiked.indexOf(profileId) != -1}"></i>
+              <span>{{comment.like}}</span>
             </div>
             <div class="comment-emoij__dislike">
-              <i class="fal fa-thumbs-down" @click="dislike"></i>
-              <span>{{message.dislike}}</span>
+              <i class="fal fa-thumbs-down" @click="dislike(comment)" :class="{fas: comment.listUserUIDDisliked.indexOf(profileId) != -1}"></i>
+              <span>{{comment.dislike}}</span>
             </div>
             <span class="comment-reply">Reply</span>
           </div>
@@ -46,16 +46,17 @@
 
 <script>
 import db from '../firebase/firebaseInit'
+import firebase from 'firebase'
 export default {
   name: "ViewBlog",
   data() {
     return {
       currentBlog: null,
       author : {},
-      message : '',
-      messages: [],
+      comment : '',
+      comments: [],
       quantityMessages : 0,
-      errorMsg: ""
+      errorMsg: '',
     }
   },
   async mounted() {
@@ -65,56 +66,106 @@ export default {
     const dataBase = await db.collection('users').doc(this.currentBlog[0].profileId)
     const dbResults = await dataBase.get()
     this.author = dbResults.data()
-    db.collection("messages").where("messageInfo.blogId","==",this.$route.params.blogID)
-    .get()
-    .then((querySnapshot) => {
+    db.collection("comments").where("comment.blogId","==",this.$route.params.blogID)
+    .onSnapshot(
+      (querySnapshot) => {
+        this.comments = []
         querySnapshot.forEach((doc) => {
-            this.messages.push(doc.data().messageInfo);
+            this.comments.push(doc.data().comment);
         });
-        this.messages.sort((a,b) => {
+        this.comments.sort((a,b) => {
           return parseInt(a.createdAt) - parseInt(b.createdAt)
         })
-        this.quantityMessages = this.messages.length
+        this.quantityMessages = this.comments.length
     })
+  },
+  computed: {
+    profileId() {
+      return this.$store.state.profileId;
+    },
   },
   methods : {
     async sendMessage() {
-      if(this.message == '') {
+      if(this.comment == '') {
         this.errorMsg = "Comment not be empty"
       }
       if(this.$store.state.user == null) {
         this.errorMsg = "You need to login to comments"
       }
-      if(this.$store.state.user != null && this.message != '' ) {
-        this.errorMsg = ""
-        const messageInfo = {
-        'userUID': this.$store.state.profileId,
-        'blogId' : this.currentBlog[0].blogID,
-        'firstName': this.$store.state.profileFirstName,
-        'lastName' : this.$store.state.profileLastName,
-        'text': this.message,
-        'createdAt': Date.now(),
-        'like' : 0,
-        'dislike' : 0
+      if(this.$store.state.user != null && this.comment != '' ) {
+        this.errorMsg = ''
+        const dataBase = await db.collection("comments").doc();
+        const comment = {
+          'commentId' : dataBase.id,
+          'userUID': this.$store.state.profileId,
+          'blogId' : this.currentBlog[0].blogID,
+          'firstName': this.$store.state.profileFirstName,
+          'lastName' : this.$store.state.profileLastName,
+          'text': this.comment,
+          'createdAt': Date.now(),
+          'like' : 0,
+          'dislike' : 0,
+          'listUserUIDLiked' : [],
+          'listUserUIDDisliked' : []
         }
-        db.collection("messages").add({messageInfo})
+        await dataBase.set({comment})
         .then(() => {
-            this.message = '' 
-            this.messages.push(messageInfo);
-            this.quantityMessages = this.quantityMessages + 1
+            this.comment = '' 
         })
         .catch((error) => {
             console.error("Error adding document: ", error);
         });
       }
     },
-    like () {
-
+    async like (comment) {
+      if(this.$store.user != null) {
+        const dataBase = await db.collection("comments").doc(comment.commentId);
+        if(comment.listUserUIDLiked.indexOf(this.profileId)) {
+          await dataBase.update({
+            "comment.like" : comment.like +1,
+            "comment.listUserUIDLiked" : firebase.firestore.FieldValue.arrayUnion(this.profileId),
+          });
+          if(comment.listUserUIDDisliked.indexOf(this.profileId) != -1) {
+            await dataBase.update({
+              "comment.dislike" : comment.dislike -1,
+              "comment.listUserUIDDisliked" : firebase.firestore.FieldValue.arrayRemove(this.profileId)
+            });
+          }
+        } else {
+          await dataBase.update({
+            "comment.like" : comment.like -1,
+            "comment.listUserUIDLiked" : firebase.firestore.FieldValue.arrayRemove(this.profileId)
+          });
+        }
+      } else { 
+        alert("You need to login to interact")
+      }
     },
-    dislike() {
-      
+    async dislike(comment) {
+      if(this.$store.user != null) {
+        const dataBase = await db.collection("comments").doc(comment.commentId);
+        if(comment.listUserUIDDisliked.indexOf(this.profileId)) {
+          await dataBase.update({
+            "comment.dislike" : comment.dislike +1,
+            "comment.listUserUIDDisliked" : firebase.firestore.FieldValue.arrayUnion(this.profileId)
+          });
+          if(comment.listUserUIDLiked.indexOf(this.profileId) != -1) {
+            await dataBase.update({
+              "comment.like" : comment.like -1,
+              "comment.listUserUIDLiked" : firebase.firestore.FieldValue.arrayRemove(this.profileId),
+            });
+          }
+        } else {
+          await dataBase.update({
+            "comment.dislike" : comment.dislike -1,
+            "comment.listUserUIDDisliked" : firebase.firestore.FieldValue.arrayRemove(this.profileId)
+          });
+        }
+      } else {
+        alert("You need to login to interact")
+      }
     }
-  }
+  },
 }
 </script>
 
@@ -204,6 +255,10 @@ export default {
         .comment-emoij__like, .comment-emoij__dislike {
           margin-right: 20px ;
           cursor: pointer;
+        }
+
+        .interacted {
+          color: #000;
         }
 
         span {
