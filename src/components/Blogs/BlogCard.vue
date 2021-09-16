@@ -1,13 +1,5 @@
 <template>
   <div class="blog-card">
-    <div v-show="editPost" class="icons">
-      <div @click="editBlog" class="icon">
-        <Edit class="edit" />
-      </div>
-      <div @click="deletePost" class="icon">
-        <Delete class="delete" />
-      </div>
-    </div>
     <div class="image">
       <img
       :src="post.blogCoverPhoto" alt=""/>
@@ -25,26 +17,25 @@
 
 <script>
 import Arrow from "../../assets/Icons/arrow-right-light.svg";
-import Edit from "../../assets/Icons/edit-regular.svg";
-import Delete from "../../assets/Icons/trash-regular.svg";
+
 
 export default {
   name: "blogCard",
   props: ["post"],
-  components: { Arrow, Edit, Delete },
+  components: { Arrow },
   methods: { 
-    deletePost() {
-      this.$store.dispatch("deletePost", this.post.blogID)
-    },
-    editBlog() {
-      this.$router.push({ name: "EditBlog", params: { blogID: this.post.blogID } });
-    },
+    // deletePost() {
+    //   this.$store.dispatch("deletePost", this.post.blogID)
+    // },
+    // editBlog() {
+    //   this.$router.push({ name: "EditBlog", params: { blogID: this.post.blogID } });
+    // },
   },
-  computed: { 
-    editPost() {
-      return this.$store.state.editPost;
-    }
-  }
+  // computed: { 
+  //   editPost() {
+  //     return this.$store.state.editPost;
+  //   }
+  // }
 };
 </script>
 
@@ -69,43 +60,6 @@ $darkYellow: #b68723;
   }
   .link:hover {
     color: $darkYellow;
-  }
-
-  .icons {
-    display: flex;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-
-    .icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background-color: #fff;
-      transition: 0.5s;
-
-      &:hover {
-        background-color: #252525;
-
-        .edit, .delete {
-          path {
-            fill: #fff;
-          }
-        }
-      }
-      .edit, .delete {
-        pointer-events: none;
-        height: 15px;
-        width: auto;
-      }
-      &:nth-child(1) {
-        margin-right: 8px;
-      }
-    }
   }
 
   .image {
