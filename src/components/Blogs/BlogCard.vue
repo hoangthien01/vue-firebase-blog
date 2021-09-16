@@ -24,18 +24,9 @@ export default {
   props: ["post"],
   components: { Arrow },
   methods: { 
-    // deletePost() {
-    //   this.$store.dispatch("deletePost", this.post.blogID)
-    // },
-    // editBlog() {
-    //   this.$router.push({ name: "EditBlog", params: { blogID: this.post.blogID } });
-    // },
+
   },
-  // computed: { 
-  //   editPost() {
-  //     return this.$store.state.editPost;
-  //   }
-  // }
+
 };
 </script>
 

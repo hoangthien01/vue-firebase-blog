@@ -2,9 +2,9 @@
   <div class="post-view" v-if="currentBlog">
     <div class="toggle-edit">
       <span>Toggle Editing Post</span>
-      <input type="checkbox" v-model="activeEditPost" :checked="activeEditPost" @click="editPost">
+      <input type="checkbox" :checked="inactiveEditPost" @click="editPost">
     </div>
-    <div class="icons hehe" v-bind:class="{showIcons: activeEditPost}">
+    <div class="icons hehe" v-bind:class="{showIcons: inactiveEditPost}">
       <div @click="editBlog" class="icon">
         <Edit class="edit" />
       </div>
@@ -12,7 +12,7 @@
         <Delete class="delete" />
       </div>
     </div>
-
+    
     <div class="container quillWrapper">
       <h2>{{ this.currentBlog[0].blogTitle }}</h2>
       <h4>Posted on: {{ new Date(this.currentBlog[0].blogDate).toLocaleString("en-us", { dateStyle: "long" }) }}</h4>
@@ -70,11 +70,11 @@ export default {
     return {
       currentBlog: null,
       author : {},
+      inactiveEditPost: true,
       comment : '',
       comments: [],
       quantityMessages : 0,
       errorMsg: '',
-      activeEditPost: true
     }
   },
   async mounted() {
@@ -101,22 +101,18 @@ export default {
     profileId() {
       return this.$store.state.profileId;
     },
-
-    // editPost: { 
-    //   get() {
-    //     return this.$store.state.editPost;
-    //   },
-    //   set(payload) {
-    //     this.$store.commit("toggleEditPost", payload)
-    //   }
-    // },
-    // activeEditPost() {
-    //   return this.$store.state.editPost;
-    // }
   },
   methods : {
     editPost() {
-      
+      console.log(this.author.email)
+      console.log(firebase.auth().currentUser.email);
+      if (this.author.email === firebase.auth().currentUser.email) {
+        this.inactiveEditPost = false;
+      }
+      else {
+        alert ("You're not the author! ")
+        this.inactiveEditPost = true;
+      }
     },
     deletePost() {
       this.$store.dispatch("deletePost", this.currentBlog[0].blogID)
