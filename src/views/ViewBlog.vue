@@ -71,6 +71,7 @@ export default {
       currentBlog: null,
       author : {},
       inactiveEditPost: true,
+      countEdit: 0,
       comment : '',
       comments: [],
       quantityMessages : 0,
@@ -104,13 +105,17 @@ export default {
   },
   methods : {
     editPost() {
+      this.countEdit++;
       console.log(this.author.email)
       console.log(firebase.auth().currentUser.email);
-      if (this.author.email === firebase.auth().currentUser.email) {
+      if (this.author.email === firebase.auth().currentUser.email && this.countEdit % 2 != 0) {
         this.inactiveEditPost = false;
       }
-      else {
+      else if (this.author.email !== firebase.auth().currentUser.email){
         alert ("You're not the author! ")
+        this.inactiveEditPost = true;
+      }
+      else {
         this.inactiveEditPost = true;
       }
     },
