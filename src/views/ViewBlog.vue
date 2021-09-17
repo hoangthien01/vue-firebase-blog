@@ -160,7 +160,7 @@ export default {
       }
     },
     async like (comment) {
-      if(this.$store.user != null) {
+      if(this.$store.state.user != null) {
         const dataBase = await db.collection("comments").doc(comment.commentId);
         if(comment.listUserUIDLiked.indexOf(this.profileId)) {
           await dataBase.update({
@@ -184,7 +184,7 @@ export default {
       }
     },
     async dislike(comment) {
-      if(this.$store.user != null) {
+      if(this.$store.state.user != null) {
         const dataBase = await db.collection("comments").doc(comment.commentId);
         if(comment.listUserUIDDisliked.indexOf(this.profileId)) {
           await dataBase.update({
