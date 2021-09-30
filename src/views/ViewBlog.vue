@@ -26,20 +26,40 @@
         <textarea type="text" placeholder="Writer your comments..." rows="3" v-model="comment"> </textarea>
         <p class="errorMsg">{{this.errorMsg}}</p>
         <div class="comment-btns">
-          <button class="btn-cancel">Cancel</button>
+          <button class="btn-cancel" @click="() => {this.comment = ''}">Cancel</button>
           <button class="btn-send" @click="sendMessage">Send</button>
         </div>
       </div>
+
+
       <div class="list-comments">
         <div v-for="(comment,index) in comments" :key="'index'+index" class="comment">
           <div class="info">
-            <span>{{comment.firstName.match(/(\b\S)?/g).join("") + comment.lastName.match(/(\b\S)?/g).join("")}}</span>
+            <span class="avatar">{{comment.firstName.match(/(\b\S)?/g).join("") + comment.lastName.match(/(\b\S)?/g).join("")}}</span>
             <div>
               <h3>{{comment.firstName}} {{comment.lastName}}</h3>
               <p>{{new Date(comment.createdAt).toLocaleString("en-us", { dateStyle: "long" })}}</p>
             </div>
+            <div class="option-icon" @click="toggleCommentOption(comment.commentId)" v-show="profileId == comment.userUID">
+              <i class="far fa-ellipsis-v"></i>
+            </div>
+            <ul class="option-box" v-show="commentOptionId == comment.commentId">
+              <li @click="editComment(comment.commentId,comment.text)">
+                <i class="far fa-edit"></i>
+                <span>Edit</span>
+              </li>
+              <li @click="deleteComment(comment.commentId)">
+                <i class="far fa-trash-alt"></i>
+                <span>Delete</span>
+              </li>
+            </ul>
           </div>
-          <p>{{comment.text}}</p>
+          <p v-show="editCommentId != comment.commentId"> {{comment.text}} </p>
+          <div  class="edit-comment" v-show="editCommentId == comment.commentId">
+            <input type="text" class="edit-comment-input" v-model="editCommentText">
+            <i class="fas fa-check" @click="saveCommentEdited(comment.commentId)"></i>
+          </div>
+          
           <div class="comment-emoij">
             <div class="comment-emoij__like" >
               <i class="fal fa-thumbs-up " @click="like(comment)" :class="{fas: comment.listUserUIDLiked.indexOf(profileId) != -1}"></i>
@@ -76,6 +96,9 @@ export default {
       comments: [],
       quantityMessages : 0,
       errorMsg: '',
+      commentOptionId : '',
+      editCommentId : '',
+      editCommentText: '',
     }
   },
   async mounted() {
@@ -206,6 +229,33 @@ export default {
       } else {
         alert("You need to login to interact")
       }
+    },
+    toggleCommentOption (commentId) {
+      if(this.commentOptionId == '') {
+        this.commentOptionId = commentId
+      } else {
+        this.commentOptionId = ''
+      }
+    },
+    async deleteComment(commentId) {
+      const comment = await db.collection("comments").doc(commentId);
+      await comment.delete();
+    },
+    editComment (commentId,text) {
+      this.commentOptionId = ''
+      this.editCommentText = text
+      if(this.editCommentId == '') {
+        this.editCommentId = commentId
+      } else {
+        this.editCommentId = ''
+      }
+    },
+    async saveCommentEdited (commentId) {
+      const comment = await db.collection("comments").doc(commentId);
+      await comment.update ({
+        'comment.text': this.editCommentText
+      })
+      this.editCommentId = ''
     }
   },
 }
@@ -357,8 +407,9 @@ input:checked[type="checkbox"]:before {
         display: flex;
         align-items: center;
         margin-bottom: 20px;
+        position: relative;
 
-        span {
+        .avatar {
           width: 50px;
           height: 50px;
           display: block;
@@ -368,6 +419,63 @@ input:checked[type="checkbox"]:before {
           line-height: 50px;
           text-align: center;
           color: #fff;
+        }
+
+        .option-icon {
+          position: absolute;
+          right: 10px;
+          top: 0;
+          font-size: 20px;
+          cursor: pointer;
+          padding: 0 8px;
+        }
+
+        .option-box {
+          width: 150px;
+          position: absolute;
+          right: 10px;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.8);
+          border-radius: 5px;
+          top: 30px;
+          overflow: hidden;
+          list-style: none;
+          z-index: 99;
+
+          li {
+            padding: 8px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: gray;
+              color: #000;
+            }
+
+            i {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .edit-comment {
+        width: 100%;
+        position: relative;
+
+        .edit-comment-input {
+          padding: 10px 40px 10px 16px;
+          font-size: 16px;
+          border: none;
+          outline: none;
+          border-bottom: 1px solid #ccc;
+          width: 100%;
+        }
+
+        i {
+          position: absolute;
+          right: 0px;
+          cursor: pointer;
+          padding: 10px;
         }
       }
 
