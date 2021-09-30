@@ -10,20 +10,20 @@
         </div>
       </div>
       <div class="item">
-        <h2 class="title">FOLLOW ON FACEBOOK</h2>
-        <div class="image">
-          <img
-            src="https://scontent-hkg4-1.xx.fbcdn.net/v/t1.6435-9/p235x350/151286366_2853462818264274_2926427580029663924_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=dd9801&_nc_ohc=SDxR08pziVcAX_RRzIK&_nc_ht=scontent-hkg4-1.xx&edm=AItmks8EAAAA&oh=67e81dd27c0f8c0971fe61f4a0bd8f48&oe=612548A3"
-            alt=""
-            srcset=""
-          />
-        </div>
+        <h2 class="title">ABOUT US</h2>
+        <p>Đại học Bách Khoa - Đại học Đà Nẵng: </p> <br>
+        <div class="list-tags">
+          <a href="" class="tag" v-for="(author, index) in authors" :key="index">{{
+            author
+          }}</a>
+        </div><br>
+        <p>FE team - SGROUP</p> 
       </div>
       <div class="item">
-        <h2 class="title">SUBCRIBE</h2>
+        <h2 class="title">CONTACT</h2>
         <div class="subcribe-info">
           <p>
-            Subscribe nếu bạn muốn theo dõi các bài viết tiếp theo của mình nhé!
+            Follow nếu bạn muốn theo dõi các bài viết tiếp theo của mình nhé!
           </p>
           <p>Join 3,453 other followers</p>
           <input
@@ -69,19 +69,23 @@ export default {
   data() {
     return {
       tags: [
-        "Nhật BẢn",
+        "Minimalism",
+        "Lifestyle",
         "Việt Nam",
         "Hàn Quốc",
-        "Du lịch",
-        "Học Ngoại Ngữ",
-        "Khám Phá",
-        "Du Học",
-        "Dọn Dẹp",
-        "Nấu Ăn",
-        "Tối Giản",
-        "Cô Đơn",
+        "Ngoại Ngữ",
+        "Cô đơn",
+        "Học ngoại ngữ",
+        "Hành trình",
+        "Productivity",
+        "Khám phá",
         "Trung Quốc",
       ],
+      authors: [
+        "Hoàng Thiện",
+        "Hoàng Nhân",
+        "Mỹ Duyên"
+      ]
     };
   },
 };
