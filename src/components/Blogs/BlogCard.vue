@@ -38,7 +38,7 @@ $darkYellow: #b68723;
   position: relative;
   background-color: #fff;
   min-height: 420px;
-  cursor: pointer;
+  cursor: initial;
   transition: 0.5s ease all;
   overflow: hidden;
 
