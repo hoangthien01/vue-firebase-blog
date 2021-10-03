@@ -22,7 +22,8 @@ export default {
   },
   methods: {
     checkActiveNav() {
-      if(this.$route.name == "Login" || this.$route.name == "Register" || this.$route.name == "ResetPassword") {
+      if(this.$route.name == "Login" || this.$route.name == "Register"
+      || this.$route.name == "ResetPassword"||this.$route.name == "PageNotFound") {
         this.activeNav = false
         return
       }
@@ -59,6 +60,26 @@ export default {
   // font-family: "Quicksand", sans-serif;
 }
 
+body {
+  /*  
+      Custom srcollbar 
+      Does not support firefox and IE
+  */
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: black;
+  }
+}
+
 #app {
   padding-top: 55px;
   display: flex;
@@ -70,6 +91,8 @@ export default {
   max-width: 1400px;
   margin: 0 auto;
 }
+
+
 
 .error {
   text-align: center;
