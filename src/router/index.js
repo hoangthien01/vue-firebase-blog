@@ -1,10 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import firebase from "firebase/app";
-import "firebase/auth"
-
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue"
+import Register from "../views/Register.vue"
+import ResetPassword from "../views/ResetPassword.vue"
+import Profile from "../views/Profile.vue"
 
+import Blogs from "../views/Blogs.vue"
+import ViewBlog from "../views/ViewBlog.vue"
+import EditBlog from "../views/EditBlog.vue"
+
+import CreatePost from "../views/CreatePost.vue"
+import BlogPreview from "../views/BlogPreview.vue"
+// import { component } from "vue/types/umd";
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,101 +20,57 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: {
-      title: 'Home',
-      requiresAuth: false,
-      hideAuth: false,
-    },
   },
   {
     path: "/Login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
-    meta: {
-      title: 'Login',
-      requiresAuth: false,
-      hideAuth: true,
-    },
+    component: Login,
   },
   {
     path: "/Register",
     name: "Register",
-    component: () => import("../views/Register.vue"),
-    meta: {
-      title: 'Register',
-      requiresAuth: false,
-      hideAuth: true,
-    },
+    component: Register,
   },
   {
     path: "/ResetPassword",
     name: "ResetPassword",
-    component: () => import("../views/ResetPassword.vue"),
-    meta: {
-      title: 'Reset Password',
-      requiresAuth: false,
-      hideAuth: true,
-    },
+    component: ResetPassword,
   },
   {
     path: "/blogs",
     name: "Blogs",
-    component: () => import("../views/Blogs.vue"),
-    meta: {
-      title: 'Blogs',
-      requiresAuth: false,
-      hideAuth: false,
-    },
+    component: Blogs,
   },
   {
     path: "/blog/:blogID",
     name: "ViewBlog",
-    component: () => import("../views/ViewBlog.vue"),
+    component: ViewBlog,
     meta: {
       title: "View Blog Post",
-      requiresAuth: false,
-      hideAuth: false,
     }
   },
   {
     path: "/edit-blog/:blogID",
     name: "EditBlog",
-    component: () => import("../views/EditBlog.vue"),
+    component: EditBlog,
     meta: {
       title: "Edit Blog Post",
-      requiresAuth: true,
-      hideAuth: false,
     }
   },
   {
     path: "/CreatePost",
     name: "CreatePost",
-    component: () => import("../views/CreatePost.vue"),
-    meta: {
-      title: 'Create Blog',
-      requiresAuth: true,
-      hideAuth: false,
-    },
+    component: CreatePost,
   },
   {
     path: "/Post-Preview",
     name: "BlogPreview",
-    component: () => import("../views/BlogPreview.vue"),
-    meta: {
-      title: 'Post Preview',
-      requiresAuth: true,
-      hideAuth: false,
-    },
+    component: BlogPreview,
   },
   {
     path: "/profile",
     name: "Profile",
-    component: () => import("../views/Profile.vue"),
-    meta: {
-      title: 'Profile',
-      requiresAuth: true,
-      hideAuth: false,
-    },
+    component: Profile
   },
   {
     path: "*",
@@ -124,27 +88,6 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} | VueBlog`;
-  next();
-});
-
-router.beforeEach(async (to, from, next) => {
-  let user = firebase.auth().currentUser;
-  if (to.matched.some((res) => res.meta.requiresAuth)) {
-    if (!user) return next({ name: 'Home' });
-  }
-  return next();
-});
-
-router.beforeEach(async (to, from, next) => {
-  let user = firebase.auth().currentUser;
-  if (to.matched.some((res) => res.meta.hideAuth)) {
-    if (user) return next({ name: 'Home' });
-  }
-  return next();
 });
 
 export default router;

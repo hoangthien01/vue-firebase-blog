@@ -60,26 +60,6 @@ export default {
   // font-family: "Quicksand", sans-serif;
 }
 
-body {
-  /*  
-      Custom srcollbar 
-      Does not support firefox and IE
-  */
-
-  /* width */
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: white;
-  }
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: black;
-  }
-}
-
 #app {
   padding-top: 55px;
   display: flex;

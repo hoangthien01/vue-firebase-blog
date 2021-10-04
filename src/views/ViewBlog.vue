@@ -1,6 +1,6 @@
 <template>
   <div class="post-view" v-if="currentBlog">
-    <div class="toggle-edit" v-if="user">
+    <div class="toggle-edit">
       <span>Toggle Editing Post</span>
       <input type="checkbox" :checked="inactiveEditPost" @click="editPost">
     </div>
@@ -88,7 +88,6 @@ export default {
   components: { Edit, Delete },
   data() {
     return {
-      user: null,
       currentBlog: null,
       author : {},
       inactiveEditPost: true,
@@ -103,7 +102,6 @@ export default {
     }
   },
   async mounted() {
-    this.user = this.$store.state.user
     this.currentBlog = await this.$store.state.blogPosts.filter(blog => {
       return blog.blogID === this.$route.params.blogID
     })
@@ -131,8 +129,8 @@ export default {
   methods : {
     editPost() {
       this.countEdit++;
-      // console.log(this.author.email)
-      // console.log(firebase.auth().currentUser.email);
+      console.log(this.author.email)
+      console.log(firebase.auth().currentUser.email);
       if (this.author.email === firebase.auth().currentUser.email && this.countEdit % 2 != 0) {
         this.inactiveEditPost = false;
       }

@@ -11,13 +11,12 @@
 
     <div v-if="user" class="profile" @click="toggleProfileMenu">
       <span>{{ this.$store.state.profileInitials }}</span>
-      <div v-show="profileMenu" class="profile-menu-overlay"></div>
       <div v-show="profileMenu" class="profile-menu">
             <div class="info">
               <p class="initials">{{ this.$store.state.profileInitials }}</p>
               <div class="right">
                 <p>{{ this.$store.state.profileFirstName }} {{ this.$store.state.profileLastName }}</p>
-                <p>@ {{ this.$store.state.profileUsername }}</p>
+                <p>{{ this.$store.state.profileUsername }}</p>
                 <p>{{ this.$store.state.profileEmail }}</p>
               </div>
             </div>
@@ -48,13 +47,12 @@
   <!-- Mobile view -->
   <div v-if="user && mobile" class="profile profile-mobile" @click="toggleProfileMenu">
       <span>{{ this.$store.state.profileInitials }}</span>
-      <div v-show="profileMenu" class="profile-menu-overlay"></div>
       <div v-show="profileMenu" class="profile-menu">
             <div class="info">
               <p class="initials">{{ this.$store.state.profileInitials }}</p>
               <div class="right">
                 <p>{{ this.$store.state.profileFirstName }} {{ this.$store.state.profileLastName }}</p>
-                <p>@ {{ this.$store.state.profileUsername }}</p>
+                <p>{{ this.$store.state.profileUsername }}</p>
                 <p>{{ this.$store.state.profileEmail }}</p>
               </div>
             </div>
@@ -216,9 +214,8 @@ export default {
     toggleProfileMenu() {
       this.profileMenu = !this.profileMenu
     },
-    async signOut() {
-      await firebase.auth().signOut();
-      await this.$router.push({name: 'Home'});
+    signOut() {
+      firebase.auth().signOut();
       window.location.reload();
     },
   },
@@ -262,21 +259,9 @@ export default {
       background: #252525;
       color: white;
       cursor: pointer;
-
-      .profile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0);
-        z-index: 80;
-        cursor: initial;
-      }
-
+  
       .profile-menu {
         position: absolute;
-        z-index: 90;
         top: 120%;
         right: 0;
         width: 250px;
@@ -310,14 +295,12 @@ export default {
             flex: 1;
             margin-left: 24px;
             cursor: initial;
-            line-height: 20px;
 
             p {
               font-size: 12px;
             }
             p:nth-child(1) {
               font-size: 14px;
-              font-weight: 500;
             }
           }
         }
