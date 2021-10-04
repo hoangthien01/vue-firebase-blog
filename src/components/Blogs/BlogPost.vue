@@ -78,6 +78,7 @@ $darkYellow: #b68723;
         font-weight: 300;
         text-transform: uppercase;
         margin-bottom: 24px;
+        word-wrap: break-word;
         @media (min-width: 800px){
           font-size: 40px;
         }
