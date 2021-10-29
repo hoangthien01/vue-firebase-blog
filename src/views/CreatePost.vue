@@ -293,12 +293,13 @@ export default {
       display: flex;
       flex-direction: column;
       height: 100%;
-      overflow: scroll;
+      overflow: hidden;
     }
 
     .ql-editor {
       padding: 20px 16px 30px;
-      overflow: hidden;
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
   }
   
